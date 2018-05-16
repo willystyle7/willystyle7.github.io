@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Welcome</title>
+    <title>Twins Calculators</title>
     <link rel="stylesheet" href="styles/style.css">
     <script src="scripts/jquery-3.3.1.js"></script>
 </head>
@@ -14,60 +14,93 @@
         <strong>JQuery</strong> with Simple Twins Calculators Project</p>
 
     <div id="main">
-        <h2>Simple Calculator</h2>
+        <h2>Simple Calculator 1 &nbsp &nbsp Simple Calculator 2</h2>
 
         <input id="Result" type="text" class="input" />
+        <span> &nbsp &nbsp &nbsp </span>
+        <input id="Result2" type="text" class="input2" />
         <div id="keys">
             <div id="FirstRow">
                 <button id="ClearAll" type="reset" value="CE" class="clean">CE</button>
+                <span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+                <button id="ClearAll2" type="reset" value="CE" class="clean2">CE</button>
             </div>
             <div id="SecondRow">
                 <button id="One" type="button" value="1" class="digit">1</button>
                 <button id="Two" type="button" value="2" class="digit">2</button>
                 <button id="Three" type="button" value="3" class="digit">3</button>
                 <button id="Add" type="button" value="+" class="operators">+</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button id="One2" type="button" value="1" class="digit2">1</button>
+                <button id="Two2" type="button" value="2" class="digit2">2</button>
+                <button id="Three2" type="button" value="3" class="digit2">3</button>
+                <button id="Add2" type="button" value="+" class="operators2">+</button>
             </div>
             <div id="ThirdRow">
                 <button id="Four" type="button" value="4" class="digit">4</button>
                 <button id="Five" type="button" value="5" class="digit">5</button>
-                <button id="six" type="button" value="6" class="digit">6</button>
+                <button id="Six" type="button" value="6" class="digit">6</button>
                 <button id="Subtract" type="button" value="-" class="operators">-</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button id="Four2" type="button" value="4" class="digit2">4</button>
+                <button id="Five2" type="button" value="5" class="digit2">5</button>
+                <button id="Six2" type="button" value="6" class="digit2">6</button>
+                <button id="Subtract2" type="button" value="-" class="operators2">-</button>
             </div>
             <div id="FourthRow">
                 <button id="Seven" type="button" value="7" class="digit">7</button>
                 <button id="Eight" type="button" value="8" class="digit">8</button>
                 <button id="Nine" type="button" value="9" class="digit">9</button>
                 <button id="Multiply" type="button" value="*" class="operators">*</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button id="Seven2" type="button" value="7" class="digit2">7</button>
+                <button id="Eight2" type="button" value="8" class="digit2">8</button>
+                <button id="Nine2" type="button" value="9" class="digit2">9</button>
+                <button id="Multiply2" type="button" value="*" class="operators2">*</button>
             </div>
             <div id="FifthRow">
                 <button id="Zero" type="button" value="0" class="digit">0</button>
                 <button id="Dot" type="button" value="." class="digit">.</button>
                 <button id="Calculate" type="button" value="=" class="operand">=</button>
                 <button id="Divide" type="button" value="/" class="operators">/</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button id="Zero2" type="button" value="0" class="digit2">0</button>
+                <button id="Dot2" type="button" value="." class="digit2">.</button>
+                <button id="Calculate2" type="button" value="=" class="operand2">=</button>
+                <button id="Divide2" type="button" value="/" class="operators2">/</button>
             </div>
         </div>
     </div>
 
     <script>
         $("document").ready(function () {
-            var key = null;
 
             $(".clean").click(function () {
                 $('.input').val("");
             });
 
+            $(".clean2").click(function () {
+                $('.input2').val("");
+            });
+
             $(".digit").click(function () {
                 var EText = $('#Result').val();
-                if (EText != "0") {
-                    var val1 = EText;
-                    var ButtonVal = $(this);
-                    var val2 = ButtonVal.text();
-                    var Res = val1 + val2;
-                    $('#Result').val(Res);
-                } else {
-                    $('#Result').val();
-                }
+                var val1 = EText;
+                var ButtonVal = $(this);
+                var val2 = ButtonVal.text();
+                var Res = val1 + val2;
+                $('#Result').val(Res);
             });
+
+            $(".digit2").click(function () {
+                var EText = $('#Result2').val();
+                var val1 = EText;
+                var ButtonVal = $(this);
+                var val2 = ButtonVal.text();
+                var Res = val1 + val2;
+                $('#Result2').val(Res);
+            });
+
             $(function (e) {
                 var interRes = null;
                 var operator;
@@ -80,7 +113,7 @@
                         interRes = value1;
                     }
                     operator = $(this).text();
-                    $('input').val("");
+                    $('.input').val("");
                 });
                 $('#Calculate').click(function (e) {
                     var op = operator;
@@ -92,6 +125,34 @@
                         res = interRes;
                     }
                     $('#Result').val(res);
+                    interRes = null;
+                });
+            });
+
+            $(function (e2) {
+                var interRes = null;
+                var operator;
+                $('.operators2').click(function (e2) {
+                    var value1 = $('#Result2').val();
+                    if (interRes != null) {
+                        var result = ApplyOperation(interRes, value1, operator);
+                        interRes = result;
+                    } else {
+                        interRes = value1;
+                    }
+                    operator = $(this).text();
+                    $('.input2').val("");
+                });
+                $('#Calculate2').click(function (e2) {
+                    var op = operator;
+                    var res;
+                    var value2 = $('#Result2').val();
+                    if ((value2 != "")) {
+                        res = ApplyOperation(interRes, value2, op);
+                    } else {
+                        res = interRes;
+                    }
+                    $('#Result2').val(res);
                     interRes = null;
                 });
             });
