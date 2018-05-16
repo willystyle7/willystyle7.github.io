@@ -4,157 +4,121 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>📈 Cool Blog</title>
-    <link type="text/css" rel="stylesheet" href="styles/style.css">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="styles/style.css">
     <script src="scripts/jquery-3.3.1.js"></script>
-    <script src="scripts/bootstrap.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="navbar navbar-default navbar-fixed-top text-uppercase">
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="index.html" class="navbar-brand">Cool Blog</a>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="register.html">Register</a>
-                        </li>
-                        <li>
-                            <a href="login.html">Login</a>
-                        </li>
-                    </ul>
-                </div>
+    <p>Learning
+        <strong>JQuery</strong> with Simple Twins Calculators Project</p>
+
+    <div id="main">
+        <h2>Simple Calculator</h2>
+
+        <input id="Result" type="text" class="input" />
+        <div id="keys">
+            <div id="FirstRow">
+                <button id="ClearAll" type="reset" value="CE" class="clean">CE</button>
+            </div>
+            <div id="SecondRow">
+                <button id="One" type="button" value="1" class="digit">1</button>
+                <button id="Two" type="button" value="2" class="digit">2</button>
+                <button id="Three" type="button" value="3" class="digit">3</button>
+                <button id="Add" type="button" value="+" class="operators">+</button>
+            </div>
+            <div id="ThirdRow">
+                <button id="Four" type="button" value="4" class="digit">4</button>
+                <button id="Five" type="button" value="5" class="digit">5</button>
+                <button id="six" type="button" value="6" class="digit">6</button>
+                <button id="Subtract" type="button" value="-" class="operators">-</button>
+            </div>
+            <div id="FourthRow">
+                <button id="Seven" type="button" value="7" class="digit">7</button>
+                <button id="Eight" type="button" value="8" class="digit">8</button>
+                <button id="Nine" type="button" value="9" class="digit">9</button>
+                <button id="Multiply" type="button" value="*" class="operators">*</button>
+            </div>
+            <div id="FifthRow">
+                <button id="Zero" type="button" value="0" class="digit">0</button>
+                <button id="Dot" type="button" value="." class="digit">.</button>
+                <button id="Calculate" type="button" value="=" class="operand">=</button>
+                <button id="Divide" type="button" value="/" class="operators">/</button>
             </div>
         </div>
-    </header>
+    </div>
 
-    <main>
-        <div class="container body-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <article>
-                        <header>
-                            <h2>Lorem Ipsum</h2>
-                        </header>
+    <script>
+        $("document").ready(function () {
+            var key = null;
 
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi mauris, volutpat at dui quis, porta dapibus purus. Proin
-                            vitae tempor elit. Cras a sollicitudin sem. Praesent finibus varius diam, ut commodo odio lacinia
-                            vel. Fusce dapibus lorem a diam luctus elementum. Pellentesque rhoncus leo sed neque facilisis,
-                            eget feugiat sem iaculis. Aliquam sodales vel ex vitae euismod. Sed posuere erat nulla, non ornare
-                            mauris tincidunt fringilla. In sit amet sodales enim. Maecenas a arcu nec eros cursus cursus
-                            sed sed magna. Pellentesque dictum sodales mattis. In eu aliquet nunc.
-                            <br />
-                            <br /> Duis dolor sem, ornare id lacinia et, accumsan id magna. Duis in dui ligula. Pellentesque laoreet
-                            lobortis enim quis hendrerit. Phasellus ligula leo, lobortis ut lobortis id, maximus sit amet
-                            erat. Pellentesque blandit a dui finibus luctus. Nullam eleifend felis sit amet enim molestie,
-                            nec ornare nulla ultricies. Morbi eget sem pellentesque, placerat mi eget, sollicitudin justo.
-                            Pellentesque ac lacus purus. Praesent consequat eu odio at interdum. Sed tincidunt mi turpis,
-                            non suscipit leo porttitor quis. Duis commodo, ligula sit amet tincidunt dignissim, mi mi pellentesque
-                            enim, ac posuere odio ante at dui. Aliquam gravida nunc ipsum, et ullamcorper nisl euismod nec.
-                            Mauris pulvinar metus ipsum. Donec placerat vulputate metus, vitae pulvinar lectus ornare nec.
-                        </p>
+            $(".clean").click(function () {
+                $('.input').val("");
+            });
 
-                        <small class="author">
-                            John Doe
-                        </small>
+            $(".digit").click(function () {
+                var EText = $('#Result').val();
+                if (EText != "0") {
+                    var val1 = EText;
+                    var ButtonVal = $(this);
+                    var val2 = ButtonVal.text();
+                    var Res = val1 + val2;
+                    $('#Result').val(Res);
+                } else {
+                    $('#Result').val();
+                }
+            });
+            $(function (e) {
+                var interRes = null;
+                var operator;
+                $('.operators').click(function (e) {
+                    var value1 = $('#Result').val();
+                    if (interRes != null) {
+                        var result = ApplyOperation(interRes, value1, operator);
+                        interRes = result;
+                    } else {
+                        interRes = value1;
+                    }
+                    operator = $(this).text();
+                    $('input').val("");
+                });
+                $('#Calculate').click(function (e) {
+                    var op = operator;
+                    var res;
+                    var value2 = $('#Result').val();
+                    if ((value2 != "")) {
+                        res = ApplyOperation(interRes, value2, op);
+                    } else {
+                        res = interRes;
+                    }
+                    $('#Result').val(res);
+                    interRes = null;
+                });
+            });
 
-                        <footer>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-xs" href="viewpost.html">Read more &raquo;</a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
+            function ApplyOperation(value1, value2, operator) {
+                let result;
+                let number1 = parseFloat(value1);
+                let number2 = parseFloat(value2);
+                switch (operator) {
+                    case "+":
+                        result = number1 + number2;
+                        break;
+                    case "-":
+                        result = number1 - number2;
+                        break;
+                    case "*":
+                        result = number1 * number2;
+                        break;
+                    case "/":
+                        result = number1 / number2;
+                        break;
+                }
+                return result;
+            }
 
-                <div class="col-md-6">
-                    <article>
-                        <header>
-                            <h2>Lorem Ipsum</h2>
-                        </header>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi mauris, volutpat at dui quis, porta dapibus purus. Proin
-                            vitae tempor elit. Cras a sollicitudin sem. Praesent finibus varius diam, ut commodo odio lacinia
-                            vel. Fusce dapibus lorem a diam luctus elementum. Pellentesque rhoncus leo sed neque facilisis,
-                            eget feugiat sem iaculis. Aliquam sodales vel ex vitae euismod. Sed posuere erat nulla, non ornare
-                            mauris tincidunt fringilla. In sit amet sodales enim. Maecenas a arcu nec eros cursus cursus
-                            sed sed magna. Pellentesque dictum sodales mattis. In eu aliquet nunc.
-                            <br />
-                            <br /> Duis dolor sem, ornare id lacinia et, accumsan id magna. Duis in dui ligula. Pellentesque laoreet
-                            lobortis enim quis hendrerit. Phasellus ligula leo, lobortis ut lobortis id, maximus sit amet
-                            erat. Pellentesque blandit a dui finibus luctus. Nullam eleifend felis sit amet enim molestie,
-                            nec ornare nulla ultricies. Morbi eget sem pellentesque, placerat mi eget, sollicitudin justo.
-                            Pellentesque ac lacus purus. Praesent consequat eu odio at interdum. Sed tincidunt mi turpis,
-                            non suscipit leo porttitor quis. Duis commodo, ligula sit amet tincidunt dignissim, mi mi pellentesque
-                            enim, ac posuere odio ante at dui. Aliquam gravida nunc ipsum, et ullamcorper nisl euismod nec.
-                            Mauris pulvinar metus ipsum. Donec placerat vulputate metus, vitae pulvinar lectus ornare nec.
-                        </p>
-
-                        <small class="author">
-                            John Doe
-                        </small>
-
-                        <footer>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-xs" href="viewpost.html">Read more &raquo;</a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
-
-                <div class="col-md-6">
-                    <article>
-                        <header>
-                            <h2>Lorem Ipsum</h2>
-                        </header>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi mauris, volutpat at dui quis, porta dapibus purus. Proin
-                            vitae tempor elit. Cras a sollicitudin sem. Praesent finibus varius diam, ut commodo odio lacinia
-                            vel. Fusce dapibus lorem a diam luctus elementum. Pellentesque rhoncus leo sed neque facilisis,
-                            eget feugiat sem iaculis. Aliquam sodales vel ex vitae euismod. Sed posuere erat nulla, non ornare
-                            mauris tincidunt fringilla. In sit amet sodales enim. Maecenas a arcu nec eros cursus cursus
-                            sed sed magna. Pellentesque dictum sodales mattis. In eu aliquet nunc.
-                            <br />
-                            <br /> Duis dolor sem, ornare id lacinia et, accumsan id magna. Duis in dui ligula. Pellentesque laoreet
-                            lobortis enim quis hendrerit. Phasellus ligula leo, lobortis ut lobortis id, maximus sit amet
-                            erat. Pellentesque blandit a dui finibus luctus. Nullam eleifend felis sit amet enim molestie,
-                            nec ornare nulla ultricies. Morbi eget sem pellentesque, placerat mi eget, sollicitudin justo.
-                            Pellentesque ac lacus purus. Praesent consequat eu odio at interdum. Sed tincidunt mi turpis,
-                            non suscipit leo porttitor quis. Duis commodo, ligula sit amet tincidunt dignissim, mi mi pellentesque
-                            enim, ac posuere odio ante at dui. Aliquam gravida nunc ipsum, et ullamcorper nisl euismod nec.
-                            Mauris pulvinar metus ipsum. Donec placerat vulputate metus, vitae pulvinar lectus ornare nec.
-                        </p>
-
-                        <small class="author">
-                            John Doe
-                        </small>
-
-                        <footer>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-xs" href="viewpost.html">Read more &raquo;</a>
-                            </div>
-                        </footer>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container modal-footer">
-            <p>&copy; 2018 - Software University Foundation</p>
-        </div>
-    </footer>
+        });
+    </script>
 
 </body>
 
