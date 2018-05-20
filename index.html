@@ -22,8 +22,14 @@
         <div id="keys">
             <div id="FirstRow">
                 <button id="ClearAll" type="reset" value="CE" class="clean">CE</button>
-                <span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</span>
+                <button id="Clear" type="reset" value="C" class="clean">C</button>
+                <button id="Backspace" type="button" value="bckspc" class="backspace">&larr;</button>
+                <button id="Sign" type="button" value="+/-" class="sign">+/-</button>
+                <span> &nbsp &nbsp &nbsp </span>
                 <button id="ClearAll2" type="reset" value="CE" class="clean2">CE</button>
+                <button id="Clear2" type="reset" value="C" class="clean2">C</button>
+                <button id="Backspace2" type="button" value="CE" class="backspace2">&larr;</button>
+                <button id="Sign2" type="button" value="+/-" class="sign2">+/-</button>
             </div>
             <div id="SecondRow">
                 <button id="One" type="button" value="1" class="digit">1</button>
@@ -81,6 +87,38 @@
 
             $(".clean2").click(function () {
                 $('.input2').val("");
+            });
+
+            $(".backspace").click(function () {
+                var temp = $('.input').val();
+                temp = temp.substring(0, temp.length - 1);
+                $('.input').val(temp);
+            });
+
+            $(".backspace2").click(function () {
+                var temp2 = $('.input2').val();
+                temp2 = temp2.substring(0, temp2.length - 1);
+                $('.input2').val(temp2);
+            });
+
+            $(".sign").click(function () {
+                var temp = $('.input').val();
+                if (temp[0] === "-") {
+                    temp = temp.substring(1, temp.length);
+                } else {
+                    temp = '-' + temp;
+                }
+                $('.input').val(temp);
+            });
+
+            $(".sign2").click(function () {
+                var temp2 = $('.input2').val();
+                if (temp2[0] === "-") {
+                    temp2 = temp2.substring(1, temp2.length);
+                } else {
+                    temp2 = '-' + temp2;
+                }
+                $('.input2').val(temp2);
             });
 
             $(".digit").click(function () {
