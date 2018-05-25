@@ -21,10 +21,11 @@ $(function () {
   });
 
   $("table").on("click", ".del-col", function () {
-    countCol--; 
-    var colnum = $(this).parent().index();       
+    countCol--;
+    var colnum = $(this).parent().index();
     $("table tr").find("th:eq(" + colnum + ")").remove();
     $("table tr").find("td:eq(" + colnum + ")").remove();
+    reorder();
   });
 
   $("table").on("click", ".add-col", function () {
@@ -36,7 +37,15 @@ $(function () {
     <button class="add-col">+</button>
     <button class="del-col">-</button>
   </th>`);
-
+    reorder();
   });
+
+  function reorder() {
+    for (var i = 0; i < countCol; i++) {
+      $("table tr").find("th:eq(" + i + ")").first().remove();
+      let newNumberCol = "<th>col" + (i + 1) + "</th>";
+      $("table tr").find("th:eq(" + i + ")").first().before(newNumberCol);
+    }
+  }
 
 });
