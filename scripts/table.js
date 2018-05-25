@@ -32,10 +32,10 @@ $(function () {
     var colnum = $(this).parent().index();
     $("table tr").find("th:eq(" + colnum + ")").first().before("<th>col" + colnum + "</th>");
     $("table tr").find("td:eq(" + colnum + ")").before(`<td><input type="text" placeholder="Text"></td>`);
-    $("table tr").find("th:eq(" + colnum + ")").last().before(`<td>
+    $("table tr").find("th:eq(" + colnum + ")").last().before(`<th>
     <button class="add-col">+</button>
     <button class="del-col">-</button>
-  </td>`);
+  </th>`);
 
   });
 
