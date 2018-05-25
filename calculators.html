@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+	<link rel="icon" href="images/favicon1.ico" />
+    <title>Twins Calculators</title>
+    <link rel="stylesheet" href="styles/style1.css">
+    <script src="scripts/jquery-3.3.1.js"></script>
+    <script src="scripts/calculator.js"></script>
+</head>
+
+<body>
+    <p>Learning
+        <strong>JQuery</strong> with Simple Twins Calculators Project</p>
+
+    <div id="main">
+        <h2>Simple Calculator 1 &nbsp &nbsp Simple Calculator 2</h2>
+
+        <input id="result1" type="text" class="input" />
+        <span> &nbsp &nbsp &nbsp </span>
+        <input id="result2" type="text" class="input" />
+        <div id="keys">
+            <div id="FirstRow">
+                <button type="reset" value="CE" class="clean" data-target="#result1">CE</button>
+                <button type="reset" value="C" class="clean" data-target="#result1">C</button>
+                <button type="button" value="bckspc" class="backspace" data-target="#result1">&larr;</button>
+                <button type="button" value="+/-" class="sign" data-target="#result1">+/-</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button type="reset" value="CE" class="clean" data-target="#result2">CE</button>
+                <button type="reset" value="C" class="clean" data-target="#result2">C</button>
+                <button type="button" value="CE" class="backspace" data-target="#result2">&larr;</button>
+                <button type="button" value="+/-" class="sign" data-target="#result2">+/-</button>
+            </div>
+            <div> 
+                <button type="button" value="1" class="digit" data-target="#result1">1</button>
+                <button type="button" value="2" class="digit" data-target="#result1">2</button>
+                <button type="button" value="3" class="digit" data-target="#result1">3</button>
+                <button type="button" value="+" class="operators" data-target="#result1">+</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button type="button" value="1" class="digit" data-target="#result2">1</button>
+                <button type="button" value="2" class="digit" data-target="#result2">2</button>
+                <button type="button" value="3" class="digit" data-target="#result2">3</button>
+                <button type="button" value="+" class="operators" data-target="#result2">+</button>
+            </div>
+            <div> 
+                <button type="button" value="4" class="digit" data-target="#result1">4</button>
+                <button type="button" value="5" class="digit" data-target="#result1">5</button>
+                <button type="button" value="6" class="digit" data-target="#result1">6</button>
+                <button type="button" value="-" class="operators" data-target="#result1">-</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button type="button" value="4" class="digit" data-target="#result2">4</button>
+                <button type="button" value="5" class="digit" data-target="#result2">5</button>
+                <button type="button" value="6" class="digit" data-target="#result2">6</button>
+                <button type="button" value="-" class="operators" data-target="#result2">-</button>
+            </div>
+            <div> 
+                <button type="button" value="7" class="digit" data-target="#result1">7</button>
+                <button type="button" value="8" class="digit" data-target="#result1">8</button>
+                <button type="button" value="9" class="digit" data-target="#result1">9</button>
+                <button type="button" value="*" class="operators" data-target="#result1">*</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button type="button" value="7" class="digit" data-target="#result2">7</button>
+                <button type="button" value="8" class="digit" data-target="#result2">8</button>
+                <button type="button" value="9" class="digit" data-target="#result2">9</button>
+                <button type="button" value="*" class="operators" data-target="#result2">*</button>
+            </div>
+            <div> 
+                <button type="button" value="0" class="digit" data-target="#result1">0</button>
+                <button type="button" value="." class="digit" data-target="#result1">.</button>
+                <button type="button" value="=" class="calculate" data-target="#result1">=</button>
+                <button type="button" value="/" class="operators" data-target="#result1">/</button>
+                <span> &nbsp &nbsp &nbsp </span>
+                <button type="button" value="0" class="digit" data-target="#result2">0</button>
+                <button type="button" value="." class="digit" data-target="#result2">.</button>
+                <button type="button" value="=" class="calculate" data-target="#result2">=</button>
+                <button type="button" value="/" class="operators" data-target="#result2">/</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
