@@ -42,9 +42,10 @@ $(function () {
 
   function reorder() {
     for (var i = 0; i < countCol; i++) {
-      $("table tr").find("th:eq(" + i + ")").first().remove();
-      let newNumberCol = "<th>col" + (i + 1) + "</th>";
-      $("table tr").find("th:eq(" + i + ")").first().before(newNumberCol);
+      $("table tr").find("th:eq(" + i + ")").first().text("col" + (i + 1));
+      //$("table tr").find("th:eq(" + i + ")").first().remove();
+      //let newNumberCol = "<th>col" + (i + 1) + "</th>";
+      //$("table tr").find("th:eq(" + i + ")").first().before(newNumberCol);
     }
   }
 
