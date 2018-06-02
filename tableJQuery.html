@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="images/favicon2.ico" />
+  <title>Table Modifier with jQuery</title>
+  <link rel="stylesheet" href="styles/style2.css">
+  <script src="scripts/jquery-3.3.1.js"></script>
+  <script src="scripts/table.js"></script>
+</head>
+
+<body>
+  <h1>Table Modifier with jQuery</h1>
+  <table border="1">
+    <tr>
+      <th>col1</th>
+      <th>col2</th>
+      <th>
+        <button class="add-col">+C</button>
+        <button class="add-row">+R</button>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" placeholder="Text">
+      </td>
+      <td>
+        <input type="text" placeholder="Text">
+      </td>
+      <td>
+        <button class="add-row">+</button>
+        <button class="del-row">-</button>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <button class="add-col">+</button>
+        <button class="del-col">-</button>
+      </th>
+      <th>
+        <button class="add-col">+</button>
+        <button class="del-col">-</button>
+      </th>
+      <th>
+        <button class="add-col">+C</button>
+        <button class="add-row" data-reversed="true">+R</button>
+      </th>
+    </tr>
+  </table>  
+
+</body>
+
+</html>

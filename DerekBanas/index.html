@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<!-- Comment -->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="30, url=redirect.html" />
+    <meta name="description" content="Learn HMTL5, Derek Banas Tutorial Exercise" />
+    <meta name="keywords" content="HMTL, tag, learn, tutorial" />
+    <meta name="robots" content="index, follow" />
+    <script src="randomcolor.js"></script>
+    <!-- <base href="http://localhost/html/" /> -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="images/derekbanas.ico" />
+    <title>Derek Banas - HTML5, CSS3, JS Exercises</title>
+</head>
+
+<body onload="alert('Hello bad1')">
+    <div id="wrapper">
+        <noscript>Please Enable JavaScript</noscript>
+        <h1>Change Title with a click</h1>
+        <p>Lorem ipsum :)
+            <br/> Lorem ipsum</p>
+        <hr/>
+        <blockquote cite="http://epicquotes.org">
+            Some quotes..
+        </blockquote>
+        <q cite="http://www.brainyquote.com">
+            Another quote..
+        </q>
+        <pre>
+                ----*----
+                ---*-*---
+                --*---*--
+                -*-----*-
+                *-------*
+                -*-----*-
+                --*---*--
+                ---*-*---
+                ----*----
+            <code>
+        function init() {
+            var h1tags = document.getElementsByTagName("h1");
+            h1tags[0].onclick = changeColor;
+        }
+            </code>                
+        </pre>
+        <img id="calculator" src="images/calculator.gif" width="237" height="178" alt="Calculator Boobs" />
+        <br/>
+        <b>Bold: Bold Font</b>
+        <br/>
+        <strong>Strong</strong>
+        <br/>
+        <em>Emphasis</em>
+        <br/>
+        <i>Italic</i>
+        <br/>
+        <hr/>
+        <br/>
+        <small>Small</small>
+        <br/>
+        <ins>Insert</ins>
+        <br/>
+        <del>Delete</del>
+        <br/>
+        <samp>Sample Programing Output</samp>
+        <br/>
+        <hr/> &cent; &pound; &yen; &copy; &reg; &deg; &frac14; &frac12; &frac34; &sup2; &lt; &gt; &larr; &rarr;
+        <br/> 4
+        <sup>2</sup>
+        <br/> CO
+        <sub>2</sub>
+        <br/>
+        <hr/>
+
+
+
+
+
+    </div>
+
+
+
+
+    <script>
+        function init() {
+            var h1tags = document.getElementsByTagName("h1");
+            h1tags[0].onclick = changeColor;
+        }
+
+        function changeColor() {
+            this.innerHTML = "Click Again";
+            var randomcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            this.style.color = randomcolor;
+        }
+
+        onload = init;
+    </script>
+
+</body>
+
+
+</html>

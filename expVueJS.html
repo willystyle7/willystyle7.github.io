@@ -4,17 +4,37 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="images/favicon2.ico" />
+    <link rel="icon" href="images/vuejs.ico" />
     <title>Experiments with VueJS</title>
     <link rel="stylesheet" href="styles/style2.css">
-    <script src="scripts/jquery-3.3.1.js"></script>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
-    <script src="scripts/tableVueJS.js"></script>
+    <!-- <script src="scripts/expVueJS.js"></script> -->
 </head>
 
 <body>
+    <div id="root">
+        <p>Reactivity example</p>
+        <input type="text" id="input" v-model="message">
+        <p>The value of the input is: {{message}}</p>
+    </div>
 
-    <div id="app"></div>
+
+
+
+
+    <script>
+        var data = {
+            message: 'Hello World'
+        };
+
+        new Vue({
+            el: '#root',
+            data: data
+        });
+
+
+        document.querySelector('#input').value = data.message;
+    </script>
 
 </body>
 
