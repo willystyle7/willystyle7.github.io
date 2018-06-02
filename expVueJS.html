@@ -14,8 +14,21 @@
 <body>
     <div id="root">
         <p>Reactivity example</p>
-        <input type="text" id="input" v-model="message">
-        <p>The value of the input is: {{message}}</p>
+        <input type="text" id="input" v-model="message" />
+        <p>The value of the input is: {{message}}.</p>
+        <hr/>
+        <p>Example of Dynamic List</p>
+        <p>List of Willys CoWorking Space:</p>
+        <ol>
+            <!-- <li v-for="name in names">{{name}}</li> -->
+            <li v-for="name in names" v-text="name"></li>
+        </ol>
+        <input type="text" v-model="newMember" />
+        <button v-on:click="addMember">Add Memmber</button>
+        <br/>
+        <input type="text" v-model="memberToRemove" />
+        <button v-on:click="removeMember">Remove Memmber</button>
+        <hr/>
     </div>
 
 
@@ -23,17 +36,36 @@
 
 
     <script>
-        var data = {
-            message: 'Hello World'
-        };
-
-        new Vue({
+        var app = new Vue({
             el: '#root',
-            data: data
+            data: {
+                message: 'Hello World',
+                newMember: '',
+                memberToRemove: '',
+                names: ['Zlatka', 'GodGift', 'Tommy', 'Atanas', 'Ilia'],
+            },
+            methods: {
+                addMember() {
+                    this.names.push(this.newMember);
+                    this.newMember = '';
+                },
+                removeMember() {
+                    if (this.names.includes(this.memberToRemove)) {
+                        let index = this.names.indexOf(this.memberToRemove);
+                        this.names.splice(index, 1);
+                    } else if (Number(this.memberToRemove) >= 1 && Number(this.memberToRemove) <= this.names.length) {
+                        let index = Number(this.memberToRemove) - 1;
+                        this.names.splice(index, 1);
+                    } else {
+                        alert("No such member or member with that number!")
+                    }
+                    this.memberToRemove = '';
+                },
+            }
         });
 
 
-        document.querySelector('#input').value = data.message;
+        //document.querySelector('#input').value = data.message;
     </script>
 
 </body>
