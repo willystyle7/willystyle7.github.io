@@ -16,6 +16,7 @@
         <p>Reactivity example</p>
         <input type="text" id="input" v-model="message" />
         <p>The value of the input is: {{message}}.</p>
+        <p>The reverse of the input is: {{message.split('').reverse().join('')}}.</p>
         <hr/>
         <p>Example of Dynamic List</p>
         <p>List of Willys CoWorking Space:</p>
@@ -24,13 +25,16 @@
             <li v-for="name in names" v-text="name"></li>
         </ol>
         <input type="text" v-model="newMember" />
-        <button v-on:click="addMember">Add Memmber</button>
+        <button v-bind:disabled="disabled" v-on:click="addMember">Add Memmber</button>
         <br/>
         <input type="text" v-model="memberToRemove" />
-        <button v-on:click="removeMember">Remove Memmber</button>
+        <button v-bind:disabled="disabled" v-on:click="removeMember" v-bind:title="title">Remove Memmber</button>
+        <!-- <button @click="removeMember" :title="title">Remove Memmber</button> -->
+        <br/>
+        <button v-on:click="disableEnable" title="Disable / Enable buttons">Disable/Enable buttons</button>
         <hr/>
     </div>
-
+    
 
 
 
@@ -42,12 +46,16 @@
                 message: 'Hello World',
                 newMember: '',
                 memberToRemove: '',
+                title: 'Remove Member by Name or ID',
+                disabled : true,
                 names: ['Zlatka', 'GodGift', 'Tommy', 'Atanas', 'Ilia'],
             },
             methods: {
                 addMember() {
-                    this.names.push(this.newMember);
-                    this.newMember = '';
+                    if (this.newMember != '') {
+                        this.names.push(this.newMember);
+                        this.newMember = '';
+                    }
                 },
                 removeMember() {
                     if (this.names.includes(this.memberToRemove)) {
@@ -61,11 +69,14 @@
                     }
                     this.memberToRemove = '';
                 },
+                disableEnable() {
+                    this.disabled = !this.disabled;
+                },
             }
         });
 
 
-        //document.querySelector('#input').value = data.message;
+        //document.querySelector('#input').value = app.data.message;
     </script>
 
 </body>
