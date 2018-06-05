@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/google.ico" />
+    <title>Barrel Roll</title>
+
+</head>
+
+<body>
+
+    <h1>This content should do a barrel roll.</h1>
+    <button type="button" value="Refresh Page" onClick="history.go(0)">Roll Again Wheel of Fortune</button>
+    <script>
+        var doABarrelRoll = function () {
+            var a = "-webkit-",
+                b = 'transform:rotate(360deg);',
+                c = 'transition:4s;';
+            document.head.innerHTML += '<style>body{' + a + b + a + c + b + c + '}</style>';
+        }
+        doABarrelRoll();  
+
+    </script>
+
+
+</body>
+
+</html>
