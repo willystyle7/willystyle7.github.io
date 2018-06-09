@@ -4,18 +4,20 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="30, url=redirect.html" />
+    <meta http-equiv="refresh" content="50, url=redirect.html" />
     <meta name="description" content="Learn HMTL5, Derek Banas Tutorial Exercise" />
     <meta name="keywords" content="HMTL, tag, learn, tutorial" />
-    <meta name="robots" content="index, follow" />
-    <script src="randomcolor.js"></script>
+    <meta name="robots" content="index, follow" />    
     <!-- <base href="http://localhost/html/" /> -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="images/derekbanas.ico" />
+    <script src="scripts/randomcolor.js"></script>
     <title>Derek Banas - HTML5, CSS3, JS Exercises</title>
 </head>
 
-<body onload="alert('Hello bad1')">
+<!-- <body onload="alert('Hello bad1')"> -->
+
+<body>
     <div id="wrapper">
         <noscript>Please Enable JavaScript</noscript>
         <h1>Change Title with a click</h1>
@@ -81,23 +83,6 @@
 
 
 
-
-    <script>
-        function init() {
-            var h1tags = document.getElementsByTagName("h1");
-            h1tags[0].onclick = changeColor;
-        }
-
-        function changeColor() {
-            this.innerHTML = "Click Again";
-            var randomcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-            this.style.color = randomcolor;
-        }
-
-        onload = init;
-    </script>
-
 </body>
-
 
 </html>

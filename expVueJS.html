@@ -16,7 +16,7 @@
         <p>Reactivity example</p>
         <input type="text" id="input" v-model="message" />
         <p>The value of the input is: {{message}}.</p>
-        <p>The reverse of the input is: {{message.split('').reverse().join('')}}.</p>
+        <p>The reverse of the input is: {{reverseMessage}}.</p>
         <hr/>
         <p>Example of Dynamic List</p>
         <p>List of Willys CoWorking Space:</p>
@@ -29,7 +29,7 @@
         <br/>
         <input type="text" v-model="memberToRemove" />
         <button v-bind:disabled="disabled" v-on:click="removeMember" v-bind:title="title">Remove Memmber</button>
-        <!-- <button @click="removeMember" :title="title">Remove Memmber</button> -->
+        <!-- <button :disabled="disabled" @click="removeMember" :title="title">Remove Memmber</button> -->
         <br/>
         <button v-on:click="disableEnable" title="Disable / Enable buttons">Disable/Enable buttons</button>
         <hr/>
@@ -49,6 +49,16 @@
                 title: 'Remove Member by Name or ID',
                 disabled : true,
                 names: ['Zlatka', 'GodGift', 'Tommy', 'Atanas', 'Ilia'],
+                tasks: [
+                    {description: 'Go to the store', completes: true},
+                    {description: 'Go to the store', completes: true},
+                    {description: 'Go to the store', completes: true}
+                ]
+            },
+            computed: {
+                reverseMessage() {
+                    return this.message.split('').reverse().join('');
+                }
             },
             methods: {
                 addMember() {
