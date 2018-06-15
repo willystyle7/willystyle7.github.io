@@ -4,12 +4,12 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="50, url=redirect.html" />
+    <!-- <meta http-equiv="refresh" content="50, url=redirect.html" /> -->
     <meta name="description" content="Learn HMTL5, Derek Banas Tutorial Exercise" />
     <meta name="keywords" content="HMTL, tag, learn, tutorial" />
-    <meta name="robots" content="index, follow" />    
+    <meta name="robots" content="index, follow" />
     <!-- <base href="http://localhost/html/" /> -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link rel="icon" href="images/derekbanas.ico" />
     <script src="scripts/randomcolor.js"></script>
     <title>Derek Banas - HTML5, CSS3, JS Exercises</title>
@@ -23,6 +23,49 @@
         <h1>Change Title with a click</h1>
         <p>Lorem ipsum :)
             <br/> Lorem ipsum</p>
+        <hr/>
+        <!-- <form name="convertor"> -->
+        <h3>Number Convertor</h3>
+        <table>
+            <tr>
+                <td>
+                    <input id="number10basein" placeholder="10 Base Number" onchange="convertToHex();">
+                </td>
+                <td>
+                    <button onclick="convertToHex();">Convert to HEX</button>
+                </td>
+                <td>
+                    <input id="number16baseout" placeholder="Hex Number">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="numberHexin" placeholder="Hex Number" onchange="convertTo10Base();">
+                </td>
+                <td>
+                    <button onclick="convertTo10Base();">Convert to 10 Base Number</button>
+                </td>
+                <td>
+                    <input id="number10baseout" placeholder="10 Base Number">
+                </td>
+            </tr>
+        </table>
+        <script>
+            function convertTo10Base() {
+                let hexNumber = String(document.getElementById("numberHexin").value);
+                let number10base = parseInt(hexNumber, 16);
+                document.getElementById("number10baseout").value = number10base;
+                document.getElementById("numberHexin").value = hexNumber.toUpperCase();
+            }
+
+            function convertToHex() {
+                let number10base = Number(document.getElementById("number10basein").value);
+                let hexNumber = number10base.toString(16).toUpperCase();
+                document.getElementById("number16baseout").value = hexNumber;
+            }
+        </script>
+        <!-- </form> -->
+        <br/>
         <hr/>
         <blockquote cite="http://epicquotes.org">
             Some quotes..
