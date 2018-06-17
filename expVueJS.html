@@ -13,7 +13,8 @@
 
 <body>
     <div id="root">
-        <p>Reactivity example</p>
+        <h4 v-text="new Date()"></h4>
+        <p>Reactivity example</p>        
         <input type="text" id="input" v-model="message" />
         <p>The value of the input is: {{message}}.</p>
         <p>The reverse of the input is: {{reverseMessage}}.</p>

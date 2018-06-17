@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Meister Tasks</title>
+    <link rel="stylesheet" href="styles/style2.css">
+    <script src="scripts/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <h1>
+        <b>Mesister Tasks</b>
+    </h1>
+    <div id="root">
+        <table>
+            <tr>
+                <th>
+                    <strong>All Tasks</strong>
+                </th>
+                <th>
+                    <strong>Incomplete Tasks</strong>
+                </th>
+                <th>
+                    <strong>Completed Tasks</strong>
+                </th>
+
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li v-for="task in tasks" v-text="task.description"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <!-- <li v-for="task in tasks" v-if="!task.completed" v-text="task.description"></li> -->
+                        <li v-for="task, j in tasks" v-if="!task.completed">{{task.description}}
+                            <!-- <li v-for="task, j in incompleteTasks">{{task.description}} -->
+                            <button v-on:click="changeStatus(j)">complete</button>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <!-- <li v-for="task in tasks" v-if="task.completed" v-text="task.description"></li> -->
+                        <li v-for="task, j in tasks" v-if="task.completed">{{task.description}}
+                            <button v-on:click="deleteTask(j)">delete</button>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+
+        </table>
+
+        <hr>
+        <input type="text" placeholder="Enter New Task Here" v-model="newTaskDescription" />
+        <button v-on:click="addTask">Add Task</button>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="scripts/meistertasks.js"></script>
+
+</body>
+
+</html>
