@@ -44,6 +44,11 @@ var app = new Vue({
                 title: 'Another message',
                 body: 'That is other story.',
                 isVisible: true
+            },
+            {
+                title: 'Hidden message',
+                body: 'That was a hidden message.',
+                isVisible: false
             }
         ],
         messageTitle: '',

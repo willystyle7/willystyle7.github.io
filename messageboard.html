@@ -11,6 +11,14 @@
         body {
             padding-top: 40px;
         }
+
+        input {
+            width: 50%;
+        }
+
+        textarea {
+            width: 50%;
+        }
     </style>
     <script src="scripts/jquery-3.3.1.js"></script>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
@@ -22,16 +30,21 @@
     <div id="root" class="container">
 
         <message-list v-bind:messages="messages"></message-list>
-        <br/>
-        <div class="container">
+
+        <div class="field">
+
             <button class="button is-dark is-medium" @click="showAll">Show All Messages</button>
-            <br/>
+        </div>
+        <div class="field">
             <input type="text" class="input is-large" v-model="messageTitle" placeholder="Title of New Message" />
-            <br/>            
+        </div>
+        <div class="field">
             <textarea class="textarea is-large" v-model="messageBody" placeholder="Body of New Message"></textarea>
-            <br/>
+        </div>
+        <div class="field">
             <button class="button is-dark is-medium" @click="addMessage">Add New Message</button>
         </div>
+
     </div>
 
     <script src="scripts/messageboard.js"></script>
