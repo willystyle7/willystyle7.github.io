@@ -7,7 +7,11 @@
     <link rel="icon" href="images/vuejs.ico" />
     <title>Message Board</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
-    <style type="text/css">body {padding-top: 40px;}</style>
+    <style type="text/css">
+        body {
+            padding-top: 40px;
+        }
+    </style>
     <script src="scripts/jquery-3.3.1.js"></script>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 
@@ -17,27 +21,17 @@
 
     <div id="root" class="container">
 
-        <message title="Hello World" body="Lorem ipsum dolor sit amet, consectetur adipiscing elit."></message>
-
-        <message title="Coworking Remainder" body="Dont forget, Wednesday 6.00 pm, meeting."></message>
-
-        <message title="Another message" body="That is other story."></message>
-
-        <!-- <article class="message">
-            <div class="message-header">
-                <p>Hello World</p>
-                <button class="delete" aria-label="delete"></button>
-            </div>
-            <div class="message-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet
-                fringilla. Nullam gravida purus diam, et dictum
-                <a>felis venenatis</a> efficitur. Aenean ac
-                <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor
-                ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
-            </div>
-        </article> -->
-
+        <message-list v-bind:messages="messages"></message-list>
+        <br/>
+        <div class="container">
+            <button class="button is-dark is-medium" @click="showAll">Show All Messages</button>
+            <br/>
+            <input type="text" class="input is-large" v-model="messageTitle" placeholder="Title of New Message" />
+            <br/>            
+            <textarea class="textarea is-large" v-model="messageBody" placeholder="Body of New Message"></textarea>
+            <br/>
+            <button class="button is-dark is-medium" @click="addMessage">Add New Message</button>
+        </div>
     </div>
 
     <script src="scripts/messageboard.js"></script>

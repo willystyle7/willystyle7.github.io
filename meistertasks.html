@@ -59,7 +59,39 @@
         <hr>
         <input type="text" placeholder="Enter New Task Here" v-model="newTaskDescription" />
         <button v-on:click="addTask">Add Task</button>
+        <hr>
 
+        <h1>
+            <b>Meister Tasks (Same View but made with Components)</b>
+        </h1>
+        <!-- <task>Another task</task> -->
+
+        <table>
+            <tr>
+                <th>
+                    <strong>All Tasks</strong>
+                </th>
+                <th>
+                    <strong>Incomplete Tasks</strong>
+                </th>
+                <th>
+                    <strong>Completed Tasks</strong>
+                </th>
+
+            </tr>
+            <tr>
+                <td>
+                    <task-list v-bind:tasks="tasks"></task-list>
+                </td>
+                <td>
+                    <task-list v-bind:tasks="incompleteTasks"></task-list>
+                </td>
+                <td>
+                    <task-list v-bind:tasks="completedTasks"></task-list>
+                </td>
+            </tr>
+        </table>
+        
     </div>
 
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>

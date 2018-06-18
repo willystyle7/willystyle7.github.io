@@ -1,3 +1,17 @@
+Vue.component('task-list', {
+    props: ['tasks'],
+    template: '<div><ul><task v-for="task in tasks" :key="task.id">{{task.description}}</task></ul></div>',
+    // data() {
+    //     return {
+    //         tasks: this.app.tasks
+    //     }
+    // }
+});
+
+Vue.component('task', {
+    template: '<li><slot></slot></li>'
+});
+
 var app = new Vue({
     el: '#root',
     data: {
