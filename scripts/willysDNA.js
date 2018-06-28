@@ -36,9 +36,9 @@ var app = new Vue({
         but the symbol in the chain follows <br>
         the sequence {{sourceDNA}} <br>
         (or what you want). See how it works.</p>
-        <input type="text" v-model="sourceDNA" placeholder="Enter DNA sequence here"/>
-        <input type="number" v-model="numberRows" placeholder="Enter rows of DNA here"/>
+        <input type="text" class="inp" v-model="sourceDNA" placeholder="Enter DNA sequence here"/>
+        <input type="number" class="inp" v-model="numberRows" placeholder="Enter rows of DNA here"/>
         <span>Number ot rows in DNA</span>
         <pre>{{resultDNA}}</pre>
-   <div>`
+   </div>`
 });
