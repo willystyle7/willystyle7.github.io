@@ -8,3 +8,7 @@ body {
     font-family: Futura-book;
     font-size: 20px;
 }
+
+input {
+    width: 10%;
+}
