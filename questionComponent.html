@@ -21,9 +21,17 @@
 
     <div id="root" class="container">
 
+        <h1 class="title">Questionare:</h1>
+
         <question-list v-bind:questions="questions"></question-list>
 
-        
+        <div class="field">
+            <button class="button is-dark is-medium" @click="calculateResult">Check result</button>
+        </div>
+
+        <div class="box" box-background-color="red" v-if="result > 0">
+            <span>Your result: {{resultProcentage}}%</span>
+        </div>
 
     </div>
 
