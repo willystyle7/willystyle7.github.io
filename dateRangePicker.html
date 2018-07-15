@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Willys Web Team">
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Date Range Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+        body {
+            padding-top: 40px;
+            padding-left: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root" v-cloak>
+        <h1>Date Range Picker</h1>
+        <a href="http://www.daterangepicker.com/">Documentation</a>
+        <br/>
+        <br/>
+        <div class="form-group col-md-6">
+            <div id="reportrange" class="form-control pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 50%">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span>
+                <b class="caret"></b>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div>
+            <p>You have picked up a period: {{start_date.format('MMMM D, YYYY')}} - {{end_date.format('MMMM D, YYYY')}}, which
+                contains {{days}} days.</p>
+            <p>The start day is {{calculateDayOfWeek(start_date)}}.</p>
+            <p>The end day is {{calculateDayOfWeek(end_date)}}.</p>
+        </div>
+        <br/>
+        <hr/>
+        <h1>Age Calculator</h1>
+        <br/>
+        <p>Pick up Your Birthday</p>
+        <br/>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control pull-left" name="birthday" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 20%"
+            />
+        </div>
+        <br/>
+        <br/>
+        <p>You are born on {{calculateDayOfWeek(birth_date)}}, {{birth_date.format('MMMM D, YYYY')}}</p>
+        <p> and your age is {{age}} years.</p>
+        <br/>
+        <hr/>
+
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.6/SmoothScroll.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.27/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+
+    <script>
+        var start_date = moment().subtract(7, 'days');
+        var end_date = moment();
+        var birth_date = moment();
+
+        function cb(startDate, endDate) {
+            $('#reportrange span').html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
+            start_date = startDate;
+            end_date = endDate;
+        }
+
+        function initRange() {
+            $("#row-dim-sortable, #col-dim-sortable").sortable({
+                handle: '.handle',
+                connectWith: ".dim-sortable"
+            }).disableSelection();
+
+            $("#counters-sortable").sortable({
+                handle: '.handle'
+            });
+            $("#counters-sortable").disableSelection();
+
+            $('#reportrange').daterangepicker({
+                "startDate": start_date,
+                "endDate": end_date,
+                "alwaysShowCalendars": true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month')
+                        .endOf('month')
+                    ]
+                }
+            }, cb);
+
+            $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+                app.start_date = picker.startDate;
+                app.end_date = picker.endDate;
+            });
+
+            cb(start_date, end_date);
+        };
+
+        function initBirth() {
+            $(function () {
+                $('input[name="birthday"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    minYear: 1901,
+                    maxYear: parseInt(moment().format('YYYY'), 10)
+                }, function (start, end, label) {
+                    //var yearsOld = moment().diff(start, 'years');
+                    //alert("You are " + yearsOld + " years old!");
+                    app.birth_date = start;
+                });
+            });
+        };
+
+        var app;
+        window.onload = function () {
+            app = new Vue({
+                el: '#root',
+                data: {
+                    start_date: start_date,
+                    end_date: end_date,
+                    birth_date: birth_date
+                },
+                mounted: function () {
+                    initRange();
+                    initBirth();
+                },
+                computed: {
+                    days: function () {
+                        let days = 0;
+                        let period = this.end_date - this.start_date;
+                        days = Math.floor(period / 86400000 + 1);
+                        //console.log(period);                        
+                        return days;
+                    },
+                    age: function () {
+                        let age = 0;
+                        age = moment().diff(this.birth_date, 'years');
+                        return age;
+                    }
+                },
+                methods: {
+                    calculateDayOfWeek: function (date) {
+                        let dayOfWeek = '';
+                        switch (date["_d"].getDay()) {
+                            case 0:
+                                dayOfWeek = 'Sunday';
+                                break;
+                            case 1:
+                                dayOfWeek = 'Monday';
+                                break;
+                            case 2:
+                                dayOfWeek = 'Thuesday';
+                                break;
+                            case 3:
+                                dayOfWeek = 'Wednesday';
+                                break;
+                            case 4:
+                                dayOfWeek = 'Thursday';
+                                break;
+                            case 5:
+                                dayOfWeek = 'Friday';
+                                break;
+                            case 6:
+                                dayOfWeek = 'Saturday';
+                                break;
+                        }
+                        return dayOfWeek;
+                    }
+                }
+            });
+        };
+    </script>
+
+</body>
+
+</html>
