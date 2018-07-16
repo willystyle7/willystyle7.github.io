@@ -2,7 +2,7 @@ Vue.component('paginated-list', {
     data() {
         return {
             pageNumber: 1,
-            size: 20
+            size: 17
         }
     },
     props: {
@@ -27,7 +27,7 @@ Vue.component('paginated-list', {
             this.pageNumber = 1;
         },
         lastPage() {
-            this.pageNumber = this.pageCount - 1;
+            this.pageNumber = this.pageCount;
         }
     },
     computed: {
@@ -77,8 +77,8 @@ Vue.component('paginated-list', {
                     </li>
                  </ul>
                  <button                     
-                 @click="firstPage">
-                 First page
+                    @click="firstPage">
+                    First page
                 </button>
                 <button 
                     :disabled="pageNumber === 1" 
@@ -86,7 +86,7 @@ Vue.component('paginated-list', {
                     Previous page
                 </button>
                 <span>Page: </span>
-                <input v-model="pageNumber">
+                <input type="number" v-model="pageNumber">
                 <button 
                     :disabled="pageNumber >= pageCount - 1" 
                     @click="nextPage">
