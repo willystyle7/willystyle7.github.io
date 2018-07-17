@@ -34,7 +34,7 @@ Vue.component('paginated-list', {
         pageCount() {
             let l = this.listData.length,
                 s = this.size;
-            return (Math.floor(l / s) + 1);
+            return Math.ceil(l / s);
         },
         paginatedData() {
             let start = (this.pageNumber - 1) * this.size;
@@ -46,7 +46,7 @@ Vue.component('paginated-list', {
             <div>
                 <h1>List Paginator using Vue.js</h1>
                 <span>Number of rows on a page: </span>
-                <input type="number" v-model="size">
+                <input type="number" min="1" v-model="size">
                 <br/>
                 <br/>
                 <button                     
@@ -54,14 +54,15 @@ Vue.component('paginated-list', {
                     First page
                 </button>
                 <button 
-                    :disabled="pageNumber === 1" 
+                    :disabled="pageNumber == 1" 
                     @click="prevPage">
                     Previous page
                 </button>
                 <span>Page: </span>
-                <input type="number" v-model="pageNumber">
+                <input type="number" min="1" v-bind:max="pageCount" v-model="pageNumber">
+                <span>of {{pageCount}} </span>
                 <button 
-                    :disabled="pageNumber >= pageCount - 1" 
+                    :disabled="pageNumber >= pageCount" 
                     @click="nextPage">
                     Next page
                 </button>
@@ -77,18 +78,19 @@ Vue.component('paginated-list', {
                     </li>
                  </ul>
                  <button                     
-                    @click="firstPage">
-                    First page
+                 @click="firstPage">
+                 First page
                 </button>
                 <button 
-                    :disabled="pageNumber === 1" 
+                    :disabled="pageNumber == 1" 
                     @click="prevPage">
                     Previous page
                 </button>
                 <span>Page: </span>
-                <input type="number" v-model="pageNumber">
+                <input type="number" min="1" v-bind:max="pageCount" v-model="pageNumber">
+                <span>of {{pageCount}} </span>
                 <button 
-                    :disabled="pageNumber >= pageCount - 1" 
+                    :disabled="pageNumber >= pageCount" 
                     @click="nextPage">
                     Next page
                 </button>
