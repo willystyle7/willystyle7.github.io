@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Replace Table Cells with VueJS</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        body {
+            padding: 40px;
+        }
+
+        h1 {
+            color: grey;
+            text-align: center;
+        }
+
+        #wrapper {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 700px;
+            border: 4px solid grey;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        #table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;            
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #table td,
+        #table th {
+            border: 3px solid #ddd;
+            padding: 8px;
+        }
+
+        #table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #table tr:hover {
+            background-color: #ddd;
+        }
+
+        #table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: grey;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app" v-cloak></div>
+
+    <script type="text/x-template" id="grid-template">
+        <div id="wrapper" style="overflow-x:auto;">
+            <h1>{{title}}</h1>
+            <br/>
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>Row/Col</th>
+                        <th v-for="(col, k) in matrix[0]">{{k + 1}}</th>
+                        <th>Sum Row</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row, i) in matrix">
+                        <th>{{i + 1}}</th>
+                        <td :id="`${i}-${j}`" v-for="(col, j) in matrix[i]" @click="replaceCell(`${i}-${j}`)">{{matrix[i][j]}}</td>
+                        <th>{{sumRow(i)}}</th>
+                    </tr>
+                    <tr>
+                        <th>Sum Col</th>
+                        <th v-for="(col, c) in matrix[0]">{{sumCol(c)}}</th>
+                        <th>X</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script src="scripts/tableReplaceCells.js"></script>
+
+</body>

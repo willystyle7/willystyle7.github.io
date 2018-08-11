@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Replace Table Cells with VueJS</title>
+    <!-- <link rel="stylesheet" href="styles/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        body {
+            padding: 40px;
+        }
+
+                
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <h1>Table with Replaceable Cells using VueJS</h1>
+        <br/>
+        <div class="card col-md-12" style="overflow-x: auto; width: 50%">            
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Row/Col</th>
+                        <th v-for="(col, k) in matrix[0]">{{k + 1}}</th>
+                        <th>Sum Row</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row, i) in matrix">
+                        <th>{{i + 1}}</th>
+                        <td class="selectable" :id="`${i}-${j}`" v-for="(col, j) in matrix[i]">{{matrix[i][j]}}</td>
+                        <th>{{sumRow(i)}}</th>                    
+                    </tr>
+                    <tr>
+                        <th>Sum Col</th>
+                        <th v-for="(col, c) in matrix[0]">{{sumCol(c)}}</th>
+                        <th>X</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>       
+
+    </div>
+
+    <script src="scripts/tableReplaceCells.js"></script>
+
+</body>
