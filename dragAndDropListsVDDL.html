@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Drag and Drop Lists using vddl in VueJS</title>
+    <link rel="stylesheet" href="styles/font-awesome-4.7.0/css/font-awesome.min.css">    
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vddl@0.7.1/dist/vddl.runtime.min.js"></script>
+    <style>
+        #app {
+            font-family: "Avenir", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 60px;
+        }
+
+        h1,
+        h2 {
+            font-weight: normal;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        a {
+            color: #42b983;
+        }
+
+        .vddl-list,
+        .vddl-draggable {
+            position: relative;
+        }
+
+        .vddl-list {
+            min-height: 44px;
+        }
+
+        .vddl-dragging {
+            opacity: 0.7;
+        }
+
+        .vddl-dragging-source {
+            display: none;
+        }
+
+        .vddl-placeholder.tags {
+            color: palevioletred;
+        }
+
+        .vddl-placeholder.metrics {
+            color: peru;
+        }
+
+        /* .handle-metrics {
+          cursor: move;
+          width: 20px;
+          height: 20px;
+          background: url("./assets/logo.png") center center no-repeat;
+          background-size: 20px 20px;
+        }
+        
+        .nodrag {
+          flex: 1;
+          display: flex;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/x-template" id="vddl-template">
+        <div id="app">
+            
+            <h4>{{ msg }}</h4>
+
+            <div v-for="(list, listName) in layout.tags" class="v-col--auto" :key="listName">
+                <div class="panel">
+                    <div class="panel__heading">
+                        <h3 style="color: palevioletred">Tags {{listName}}</h3>
+                    </div>
+                    <div class="panel__body">
+                        <vddl-list class="panel__body--list" :list="list" :allowed-types="['rows','cols']" :horizontal="false">
+                            <vddl-draggable class="panel__body--item" v-for="(item, index) in list" :key="item.id" :draggable="item" :tag="'label'" :index="index"
+                                :wrapper="list" :type="listName" effect-allowed="move">
+                                <vddl-nodrag class="nodrag" style="display: inline">
+                                    <input type="checkbox" v-model="item.show" /> {{item.title}}
+                                </vddl-nodrag>
+                                <vddl-handle :handle-left="20" :handle-top="20" class="handle-metrics" style="display: inline">
+                                    <i class="fa fa-arrows"></i>
+                                </vddl-handle>
+                            </vddl-draggable>
+                            <vddl-placeholder class="tags">Drop any
+                                <strong>tag</strong> here</vddl-placeholder>
+                        </vddl-list>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel__heading">
+                    <h3 style="color: peru">Metrics</h3>
+                </div>
+                <div class="panel__body">
+                    <vddl-list class="panel__body--list" :list="layout.metrics" :allowed-types="['metrics']" :horizontal="false">
+                        <vddl-draggable class="panel__body--item" v-for="(item, index) in layout.metrics" :key="item.id" :draggable="item" :tag="'label'"
+                            :index="index" :wrapper="layout.metrics" :type="'metrics'" effect-allowed="move">
+                            <vddl-nodrag class="nodrag" style="display: inline">
+                                <input type="checkbox" v-model="item.show" /> {{item.title}}
+                            </vddl-nodrag>
+                            <vddl-handle :handle-left="20" :handle-top="20" class="handle-metrics" style="display: inline">
+                                <i class="fa fa-arrows"></i>
+                            </vddl-handle>
+                        </vddl-draggable>
+                        <vddl-placeholder class="metrics">Drop any
+                            <strong>metric</strong> here</vddl-placeholder>
+                    </vddl-list>
+                </div>
+            </div>
+
+            <div>
+                <p style="color: palevioletred">Tags on rows: {{layout.tags.rows}}</p>
+            </div>
+            <div>
+                <p style="color: palevioletred">Tags on cols: {{layout.tags.cols}}</p>
+            </div>
+            <div>
+                <p style="color: peru">Metrics: {{layout.metrics}}</p>
+            </div>
+
+        </div>
+    </script>
+
+    <script src="scripts/dragAndDropListsVDDL.js"></script>
+
+</body>
