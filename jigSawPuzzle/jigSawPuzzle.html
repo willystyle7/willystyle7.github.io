@@ -13,7 +13,7 @@
         }
 
         body {
-            padding: 40px;
+            padding: 20px;
         }
 
         h1 {
@@ -23,39 +23,22 @@
 
         #wrapper {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            width: 900px;
+            width: 40%;
             border: 4px solid grey;
             border-radius: 10px;
             box-sizing: border-box;
             padding: 10px;
         }
 
-        #table {
+        table {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
 
-        #table td,
-        #table th {
+        table td {
             border: 3px solid #ddd;
-            padding: 8px;
-        }
-
-        #table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        #table tr:hover {
-            background-color: #ddd;
-        }
-
-        #table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: center;
-            background-color: grey;
-            color: white;
+            padding: 0px;
         }
     </style>
 </head>
@@ -67,18 +50,19 @@
     <script type="text/x-template" id="grid-template">
         <div id="wrapper" style="overflow-x:auto;">
             <h1>{{title}}</h1>
-            <br/>
-            <table id="table">
+            <table>
                 <tbody>
                     <tr v-for="(row, i) in matrix">
                         <!-- <td :id="`${i}-${j}`" v-for="(col, j) in matrix[i]" @click="replaceCell(`${i}-${j}`)">{{matrix[i][j]}}</td> -->
-                        <td :id="`${i}-${j}`" v-for="(col, j) in matrix[i]"><img v-bind:src="calculateImageName(i,j)" @click="replaceCell(`${i}-${j}`)"/></td>
+                        <td :id="`${i}-${j}`" v-for="(col, j) in matrix[i]">
+                            <img v-bind:src="calculateImageName(i,j)" @click="replaceCell(`${i}-${j}`)" height="110" width="110" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </script>
 
-    <script src="scripts/jigSawPuzzle.js"></script>    
+    <script src="scripts/jigSawPuzzle.js"></script>
 
 </body>

@@ -1,34 +1,3 @@
-// function initMatrix() {
-//     console.log(this);
-//     console.log(this.vueInstance);
-//     for (let i = 0; i < vueInstance.puzzleLength; i++) {
-//         for (let j = 0; j < vueInstance.puzzleLength; j++) {                    
-//             this.matrix[i][j] = "0-0";
-//         }
-//     }
-// };
-
-// function generateParts() {
-//     for (let i = 0; i < vueInstance.puzzleLength; i++) {
-//         for (let j = 0; j < vueInstance.puzzleLength; j++) {
-//             let coords = i + "-" + j;
-//             vueInstance.parts.push(coords);
-//         }
-//     }
-// };
-
-// function meshUpPuzzle() {
-//     for (let i = 0; i < vueInstance.puzzleLength; i++) {
-//         for (let j = 0; j < vueInstance.puzzleLength; j++) {
-//             let index = Math.floor(Math.random() * this.parts.length);
-//             vueInstance.matrix[i][j] = this.parts[index];
-//             vueInstance.parts.splice(index, 1);
-//         }
-//     }
-//     generateParts();
-// };
-
-
 
 var vueInstance = new Vue({
     el: '#app',
@@ -106,7 +75,7 @@ var vueInstance = new Vue({
         calculateImageName: function (i, j) {
             let coords = this.matrix[i][j];
             let row = coords.split('-')[0];
-            let col = coords.split('-')[0];
+            let col = coords.split('-')[1];
             let pictureName = `images/row-${+row+1}-col-${+col+1}.jpg`
             return pictureName;
         }
