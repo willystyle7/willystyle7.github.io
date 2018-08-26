@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="images/chartjs-logo.svg" />
+    <title>Counties Population</title>
+    <link rel="stylesheet" href="styles/chart.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>Country Population Chart</h1>
+
+        <h4>Chart: </h4>
+        <div class="chart-type-box">
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" v-model="chartType" :value="'none'"> None</label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" v-model="chartType" :value="'line'"> Line</label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" v-model="chartType" :value="'bar'"> Bar</label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input type="radio" v-model="chartType" :value="'area'"> Area</label>
+            </div>
+
+        </div>
+
+        <h4>Countries: </h4>
+        <div>
+            <ul>
+                <li v-for="country in countries">
+                    <label>
+                        <input type="checkbox" v-model="country.show" />{{country.name}}
+                    </label>
+                </li>
+                <button @click="drawChart"> Apply </button>
+            </ul>
+        </div>
+
+        <div style5="width:50vw">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+
+    </div>
+
+    <script src="scripts/mychart.js"></script>
+</body>
+
+</html>
