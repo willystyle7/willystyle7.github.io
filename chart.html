@@ -41,8 +41,10 @@
         <div>
             <ul>
                 <li v-for="country in countries">
-                    <label>
-                        <input type="checkbox" v-model="country.show" />{{country.name}}
+                    <label>                        
+                        <input type="checkbox" v-model="country.show" />
+                        <span :style="`color:${country.color}`" style="font-size: 30px"> &#9632 </span>
+                        {{country.name}}
                     </label>
                 </li>
                 <button @click="drawChart"> Apply </button>
