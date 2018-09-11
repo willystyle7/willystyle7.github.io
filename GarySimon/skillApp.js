@@ -76,7 +76,7 @@ const router = new VueRouter({
 
 var app = new Vue({
     router,
-    // el: '#app',
+    el: '#app',
     template: '#main-template',
     data: {
         message: 'Hello Vue!'
