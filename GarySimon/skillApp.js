@@ -8,17 +8,14 @@ var Skills = Vue.component('Skills', {
         return {
             skill: '',
             skills: [{
-                    "skill": "Vanilla JS"
-                }, {
-                    "skill": "Vue.js"
-                },
-                {
-                    "skill": "Frontend Developer"
-                },
-                {
-                    "skill": "C# Developer"
-                }
-            ]
+                "skill": "Vanilla JS"
+            }, {
+                "skill": "Vue.js"
+            }, {
+                "skill": "Frontend Developer"
+            }, {
+                "skill": "C# Developer"
+            }]
         }
     },
     methods: {
@@ -43,16 +40,17 @@ var Skills = Vue.component('Skills', {
 var About = Vue.component('About', {
     template: '#about-template',
     name: 'About',
+    props: ['name'],
     data() {
         return {
-            their_name: this.$route.params.name
+            // their_name: this.$route.params.name
         }
     }
 });
 
 var Contact = Vue.component('About', {
     template: '#contact-template',
-    name: 'Contact'    
+    name: 'Contact'
 });
 
 const router = new VueRouter({
@@ -62,9 +60,10 @@ const router = new VueRouter({
             component: Skills
         },
         {
-            path: '/about',
+            path: '/about/:name?',
             name: 'about',
-            component: About
+            component: About,
+            props: true
         },
         {
             path: '/contact',
