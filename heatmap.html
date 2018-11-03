@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="images/vuejs.ico" />
+    <title>Heatmap Demo</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        body {
+            padding: 20px;
+        }
+        h1 {
+            color: #7c3155;
+            text-align: center;
+        }
+        #wrapper {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            width: 80%;
+            border: 4px solid grey;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 30px;
+        }
+        table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table td {
+            border: 3px solid #ddd;
+            padding: 0px;
+            text-align: center;
+            height: 30px;
+        }
+        .container {
+            text-align: center;
+        }
+        .button {                    
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;           
+        }
+        ul, li {
+            display: inline;
+            list-style: none;
+            margin: 3px;
+            padding: 0.2em;
+            font-size: 0.9em;    
+            border: 1px solid #ddd;
+            vertical-align: middle; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app" v-cloak></div>
+
+    <script type="text/x-template" id="heatmap-template">
+        <div id="wrapper" style="overflow-x:auto;">
+            <h1>Heatmap Country Population Demo</h1>
+            <div class=container>
+                <button class="button" @click="enableHeatmap=!enableHeatmap" :style="`background-color: ${enableHeatmap ? 'red' : 'green'};`">
+                    {{(enableHeatmap ? 'Disable' : 'Enable') + ' Heatmap'}}
+                </button>
+            </div>
+            <br>
+            <div class=container>
+                <span><strong>Pick up color: </strong></span>
+                <ul>
+                    <li v-for="color in colors">
+                        <label class="radio">
+                            <input type="radio" name="color" :value="color" v-model="pickedColor">
+                            <span :style="`color:${color}`" style="font-size: 30px"> &#9632</span>
+                        </label> 
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Year \ Country
+                        </th>
+                        <th v-for="(country, i) in countries">
+                            {{country.name}}
+                        </th>
+                    </tr>                    
+                </thead>
+                <tbody>
+                    <tr v-for="(year, i) in years">
+                        <th>
+                            {{year}}
+                        </th>
+                        <td v-for="(country, j) in countries" :style="`background-color: ${heatmap(i,j)};`">
+                           {{country.populationData[i]}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <script src="scripts/heatmap.js"></script>
+
+</body>
