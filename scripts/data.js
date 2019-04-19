@@ -4,7 +4,7 @@ var data = {
             name: 'button',
             title: 'Button',
             content:
-                '<button class="btn btn-primary" @click="onClick">{{DemoButton}}</button>'
+                '<button class="btn btn-primary" @click="onClick">Button</button>'
         },
         {
             name: 'icon',
@@ -36,11 +36,11 @@ var data = {
         {
             name: 'tree',
             title: 'Tree',
-            content: `<tree 
-    :data="treeData" 
-    search-placeholder="Search" 
-    :plugins="[\'collapse\', \'search\']" 
-    :search-comparator="comparatorsFunc[comparatorIndex]" 
+            content: `<tree
+    :data="treeData"
+    search-placeholder="Search"
+    :plugins="[\'collapse\', \'search\']"
+    :search-comparator="comparatorsFunc[comparatorIndex]"
 />`
         }
     ],
