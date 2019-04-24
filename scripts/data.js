@@ -1,59 +1,78 @@
 var data = {
     basic: [
         {
+            name: 'new-line',
+            title: 'New Line',
+            content:
+                '<br/>'
+        },
+        {
+            name: 'hor-line',
+            title: 'Horizontal Line',
+            content:
+                '<hr/>'
+        },
+        {
             name: 'button',
             title: 'Button',
             content:
                 '<button class="btn btn-primary" @click="onClick">Button</button>'
         },
         {
+            name: 'label',
+            title: 'Label',
+            content: '<label class="label">Label</label>'
+        },
+        {
             name: 'icon',
             title: 'Icon',
-            content: '<icon type="file" source="font-awesome" />'
+            content: '<i class="fas fa-file-prescription"></i>'
         }
     ],
     form: [
         {
-            name: 'form',
-            title: 'Form',
+            name: 'input-text',
+            title: 'Text Input',
             content:
-                '<form :model="form" @submit.prevent="send()">\n</form>'
+                '<input class= "form-control" type="text" placeholder="Enter data" name="iname">'
         },
         {
-            name: 'text-input',
-            title: 'Text',
-            content: `<form-field
-    input="text-input"
-    v-model="form.email"
-    name="email"
-    label="Email"
-    input-prepend="@"
-    invalid-feedback="Wrong Email address!"
-/>`
+            name: 'textarea',
+            title: 'Text Area',
+            content: `<textarea class="form-control rounded-2" name="areaname" rows="7" cols="37" placeholder="Enter more data">Somewhere in the Galaxy, far far away...</textarea>`
+        },
+        {
+            name: 'check-box',
+            title: 'Check Box',
+            content: `<div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+    <label class="custom-control-label" for="defaultChecked2">Default checked</label>
+</div>`
         }
     ],
     layout: [
         {
-            name: 'tree',
-            title: 'Tree',
-            content: `<tree
-    :data="treeData"
-    search-placeholder="Search"
-    :plugins="[\'collapse\', \'search\']"
-    :search-comparator="comparatorsFunc[comparatorIndex]"
-/>`
+            name: 'row',
+            title: 'Row',
+            content: `<div class="row">
+
+</div>`
+        },
+        {
+            name: 'col',
+            title: 'Column',
+            content: `<div class="col-md-4">
+
+</div>`
         }
     ],
     ui: [
         {
-            name: 'dashboad',
-            title: 'Dashboard',
-            content: `<dashboard
-    :data="categories"
-    defaultItemsColor="#cf213f"
-    :start-expanded="false"
-    :iconAttrs="{source: false}"
-/>`
+            name: 'progress-bar',
+            title: 'Progress Bar',
+            content: `<div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>`
         }
     ]
 };

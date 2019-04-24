@@ -41,7 +41,7 @@ var vueInstance = new Vue({
         },
         treeFilter: '',
         treeLoaded: false,
-        templateContent: '<div class="container">\n\n</div>',
+        templateContent: '<div class="container-fluid">\n\n</div>',
         theme: 'default',
         classToggle: 'btn btn-sm mr-1 btn-dark',
         textToggle: 'Toggle Dark Theme',
