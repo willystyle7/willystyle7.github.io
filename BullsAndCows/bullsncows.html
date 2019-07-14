@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="red-bull-cattle-logo.jpg" />
+    <title>Bulls & Cows Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <style>
+    body {
+        padding-top: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div class="container">
+            <div class="card m-2" style="width: 28rem;">
+                <div class="card-header">
+                    <h1 class="card-title">Bulls & Cows</h1>
+                    <h2 class="card-subtitle mb-2 text-muted">Game Helper</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row pb-2">
+                        <div class="col-6">
+                            <label>Enter number of tries: </label>
+                            <input class="form-control" type="text" id="count" v-model="count" placeholder="Enter number..."/>
+                        </div>
+                    </div>
+                    <div class="row pb-2" v-if="count > 0">
+                        <div class="col-2">
+                            Try
+                        </div>
+                        <div class="col-4">
+                            Number:
+                        </div>
+                        <div class="col-3">
+                            Bulls:
+                        </div>
+                        <div class="col-3">
+                            Cows:
+                        </div>
+                    </div>
+                    <div class="row pb-2" v-for="i in Number(count)">
+                        <div class="col-2">
+                            <span class="pt-4">{{ i }}. </span>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" v-model="nums[i-1]" placeholder="Number"/>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control" type="text" v-model="bulls[i-1]" placeholder="Bulls"/>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control" type="text" v-model="cows[i-1]" placeholder="Cows"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-success ml-4" @click="solute">Solute</button>
+                        <button type="button" class="btn btn-danger ml-2" @click="reset">Reset</button>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row" v-if="showSolution">
+                        <p v-if="solutions.length > 0">
+                            <label>Solutions: </label>
+                            {{ solutions }}
+                        </p>
+                        <p v-else>
+                            There is no solution.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bullsncows.js"></script>
+</body>
+
+</html>
