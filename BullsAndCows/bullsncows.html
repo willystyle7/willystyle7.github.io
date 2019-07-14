@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="button" class="btn btn-success ml-4" @click="solute">Solute</button>
+                        <button type="button" class="btn btn-success ml-4" @click="solute">Solve</button>
                         <button type="button" class="btn btn-danger ml-2" @click="reset">Reset</button>
                     </div>
                 </div>
@@ -73,6 +73,9 @@
                         <p v-else>
                             There is no solution.
                         </p>
+                    </div>
+                    <div class="row" v-else>
+                        Bulls&Cows &#9763;
                     </div>
                 </div>
             </div>
