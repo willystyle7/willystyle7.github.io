@@ -25,7 +25,7 @@ searchBtn.addEventListener('click', () => {
 });
 
 function fetchData(title, year) {
-    let url = 'http://www.omdbapi.com/?apikey=69dfacd7';
+    let url = 'https://www.omdbapi.com/?apikey=69dfacd7';
     if (title) url += `&t=${title}`;
     if (year) url += `&y=${year}`;
     const myInit = {
