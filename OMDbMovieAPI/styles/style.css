@@ -1,0 +1,25 @@
+body {
+    padding-top: 50px;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.movie-info {
+    font-size: 18px;
+    padding-top: 20px;
+}
+
+.rating {
+    background-color: lightgray;
+    margin: 2px;
+    padding: 4px;
+    font-size: 20px;
+    display: inline;
+    color: violet;
+    border-style: solid;
+    border-width: 2px;
+    border-color: orange;
+    border-radius: 8px;
+}
