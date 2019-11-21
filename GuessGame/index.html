@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * {
+                margin-top: 4vh;
+                margin-bottom: 4vh;
+            }
+        </style>
+    </head>
+    <body>
+        <center style="margin-top: 20%;">
+
+            <div id="prompt"></div>
+
+            <div id="front-page">
+                Welcome To The Number Guessing Game! <br>
+                <button id="g-game-btn"> Guessing Game </button>
+                <button id="rg-game-btn"> Reverse Guessing Game </button>
+            </div>
+
+
+
+
+            <div id="pre-g-game" style="display:none;">
+                <div> min: <input type="text" id="gg-min"> </div>
+                <div> max: <input type="text" id="gg-max"> </div>
+                <button id="g-game-begin"> begin! </button>
+            </div>
+
+            <div id="g-game" style="display:none;">
+                <div id="g-game-text"> Make a guess. </div>
+                <input type="text" id="user-guess">
+                <button id="user-guess-btn"> GO </button>
+            </div>
+
+
+
+
+            <div id="pre-rg-game" style="display:none;">
+                <div> min: <input type="text" id="rgg-min"> </div>
+                <div> max: <input type="text" id="rgg-max"> </div>
+                <div> target: <input type="text" id="rgg-target"> </div>
+                <button id="rg-game-begin"> begin! </button>
+            </div>
+
+            <button id="play-again" style="display:none;"
+            onclick="
+                prompt.innerHTML='';
+                showPage('front-page');
+                this.style.display = 'none';
+            "> play again </button>
+
+            <div id="rg-game" style="display:none;">
+                <button id="low-btn"> That's too low. </button>
+                <button id="correct-btn"> That's correct!! </button>
+                <button id="high-btn"> That's too high. </button>
+            </div>
+        </center>
+    </body>
+    <script>
+        const log = console.log
+        const D = x => document.getElementById(x)
+        const prompt = D('prompt')
+
+        const err = s =>
+            prompt.innerHTML = `<span style='color:red;'> ${s} </span>`
+
+        const win = s =>
+            prompt.innerHTML = `<span style='color:green;'> ${s} </span>`
+
+        function clearInputFields() {
+            inputs = document.getElementsByTagName('input');
+            for (let i = 0; i < inputs.length; ++i) inputs[i].value = ''
+        }
+
+        D('g-game-btn').onclick = _ => guessingGame()
+        D('rg-game-btn').onclick = _ => reverseGuessingGame()
+
+        const pages = ['front-page','pre-g-game','pre-rg-game','g-game','rg-game']
+
+
+
+
+
+
+
+
+
+        const showPage = page =>
+            pages.forEach(p => D(p).style.display = p === page ? 'block' : 'none')
+
+        function guessingGame() {
+            prompt.innerHTML = 'Choose your guessing range.'
+            showPage('pre-g-game')
+            D('g-game-begin').onclick = _ => initGuessingGame(
+                D('gg-min').value,
+                D('gg-max').value)
+        }
+
+        function invalidInput(x) {
+            if (Number.isNaN(x)) {
+                err(`Please input valid integers.`)
+                return true;
+            }
+            if (x % 1 !== 0) {
+                err(`Your input should not be a floating point number.`)
+                return true;
+            }
+            return false;
+        }
+        function invalidGuess(x,min,max) {
+            return invalidInput(x) || !(min <= x && x <= max)
+        }
+
+        function invalidRange(_min,_max) {
+
+            const min = +_min, max = +_max
+
+            if ([min,max].some(x => invalidInput(x)))
+                return true
+
+            if (min > max)
+                return err(`min should not be greater than max.`)
+
+            if (min < -(2**30))
+                return err(`min is too small.`)
+
+            if (max > 2**30)
+                return err(`max is too big.`)
+
+            if (min === max)
+                return err(`Where's the fun in that?`)
+
+            return false;
+        }
+
+        function initGuessingGame(_min,_max, hardcodedTarget) {
+            if (invalidRange(_min,_max))
+                return;
+
+            const min = +_min, max = +_max
+
+            showPage('g-game')
+            prompt.innerHTML = ''
+            clearInputFields()
+            makeTheUserGuess(
+                min,
+                max,
+                hardcodedTarget || Math.round(Math.random() * (max-min) + min),
+                [])
+        }
+
+
+
+
+
+
+                                        // test guessing game:
+                                        // guessingGame()
+                                        // initGuessingGame('100','300',219);
+
+
+                                        // test reverse guessing game:
+                                        // reverseGuessingGame()
+                                        // initReverseGuessingGame('123','234','220');
+
+
+
+
+
+
+
+
+        function makeTheUserGuess(min,max,target,guesses) {
+            D('user-guess-btn').onclick = function(e) {
+                // so that the user can "see" that they pressed the button:
+                const text = D('g-game-text').innerHTML
+                D('g-game-text').innerHTML = 'Checking...'
+                setTimeout(
+                    _ => (
+                        D('g-game-text').innerHTML = text,
+                        guessingFunc()),
+                    Math.random() * 200 + 300)
+
+
+                function guessingFunc() {
+                    const guess = +D('user-guess').value
+
+                    if (invalidGuess(guess,min,max))
+                        return err('invalid input or number out of range')
+
+                    guesses.push(guess)
+
+                    if (target > guess)
+                        prompt.innerHTML = 'Try a bigger number.'
+
+                    if (target < guess)
+                        prompt.innerHTML = 'Try a smaller number.'
+
+                    if (target === guess) {
+                        clearInputFields()
+                        D('g-game').style.display = 'none'
+                        D('play-again').style.display = 'block'
+                        prompt.innerHTML = win(`
+                            You guessed correctly! <br>
+                            Here's how you did: <br> <br>
+                            ${showAnalysis(min,max,target,guesses)}`)
+                    }
+                }
+            }
+
+            function showAnalysis(min,max,target,guesses) {
+                const count = guesses.length
+                const [computerCount,computerGuesses] = estimateAttempts(min,max,target)
+                return `<div style="text-align:left;">
+                Target number:               ${target} <br>
+                Minumum possible guess:      ${min} <br>
+                Maximum possible guess:      ${max} <br>
+                Size of range:               ${max-min} <br>
+                Number of guesses:           ${count} <br>
+                Your list of guesses:  <br> [${guesses.join`, `}] <br>
+                Number of guesses it would have taken the computer:
+                    ${computerCount} <br>
+                What the computer would have guessed: <br>
+                    [${computerGuesses.join`, `}] <br> <br>
+
+                You: ${userAnalysis()} </div>`
+
+                function userAnalysis() {
+                    let text = '<br>', c = false
+                    const seen = new Set()
+                    for (const i in guesses) {
+                        if (seen.has(guesses[i])) {
+                            text += `You've repeated ${guesses[i]}.
+                            That's not the best way to play this game. <br>`
+                        }
+                        seen.add(guesses[i])
+                        if (Math.abs(guesses[i] - computerGuesses[i]) > 2 && !c) {
+                            c = true
+                            text += `Starting from guess number ${+i + 1},
+                            you made a move that was not optimal. <br>`
+                        }
+                    }
+                    const b = text.length > 4
+                    if (guesses.length < computerGuesses.length && b) {
+                        text += 'Looks like you got a bit lucky!'
+                    }
+                    return b ? text : 'Well done! 😊'
+                }
+            }
+
+            function estimateAttempts(min,max,target) {
+                const data = {
+                    count: 1,
+                    guess: (min+max)/2|0,
+                    moves: [],
+                    lowerThan: max+1,
+                    higherThan: min-1
+                }
+
+                while (data.guess !== target) nextGuess(data, target)
+
+                data.moves.push(data.guess)
+
+                return [data.count, data.moves]
+            }
+        }
+
+
+
+        function reverseGuessingGame() {
+            prompt.innerHTML =
+                'Choose a min, max, and a number in that range for the computer to guess.'
+            showPage('pre-rg-game')
+            D('rg-game-begin').onclick = _ => initReverseGuessingGame(
+                D('rgg-min').value,
+                D('rgg-max').value,
+                D('rgg-target').value
+            )
+        }
+
+        function initReverseGuessingGame(_min,_max,_guess) {
+            if (invalidRange(_min,_max)) return;
+
+            const min = +_min, max = +_max, guess = +_guess
+
+            if (invalidGuess(guess,min,max)) return;
+            clearInputFields()
+            showPage('rg-game')
+            prompt.innerHTML = ''
+            playRGGame(
+                min,
+                max,
+                guess,
+                [])
+        }
+
+
+        function nextGuess(data, target) {
+            const dir = target === 'lower' || data.guess > target ? -1 : 1
+            if (dir < 0)
+                data.lowerThan = data.guess
+            else
+                data.higherThan = data.guess
+
+
+            if (typeof target === 'string') {
+
+                data.guess = ((data.lowerThan + data.higherThan) / 2 | 0) || 1
+
+                if (data.lowerThan - data.higherThan < 2)
+                    return err('Why are you LYING! 😡')
+
+                prompt.innerHTML = `The computer guesses ${data.guess}. Is that correct?`
+
+                data.moves.push(data.guess)
+            }
+            else
+            {
+                data.moves.push(data.guess)
+                data.guess = ((data.lowerThan + data.higherThan) / 2 | 0) || 1
+            }
+
+            ++data.count
+        }
+
+        function playRGGame(min,max,target,attempts) {
+            /*
+            the computer cannot act as a magical wizard,
+            it will have to deduce that you're lying like a normal person
+            */
+            const data = {
+                count: 1,
+                guess: (min+max)/2|0,
+                moves: [(min+max)/2|0],
+                lowerThan: max+1,
+                higherThan: min-1
+            }
+
+            prompt.innerHTML = `The computer guesses ${data.guess}. Is that correct?`
+
+            D('low-btn').onclick = _ =>     nextGuess(data, 'higher')
+            D('high-btn').onclick = _ =>    nextGuess(data,  'lower')
+
+            D('correct-btn').onclick = _ => (
+                clearInputFields(),
+                D('rg-game').style.display = 'none',
+                D('play-again').style.display = 'block',
+                win(`Yay - I win!! 😊 <br>
+                It took me ${data.count} guesses. <br>
+                Here they are: <br> [${data.moves.join`, `}]`)
+            )
+        }
+
+    </script>
+</html>
