@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+        <title>Hovercard Effect and Tooltip</title>
+        <style>
+/* Hovercard Effect */
+.content {
+  background-color: white;
+  max-width: 30em;
+  padding: 1rem;
+}
+
+.link-with-hovercard {
+  position: relative;
+}
+
+.link-with-hovercard a {
+  white-space: nowrap;
+}
+
+.hovercard {
+  display: block;
+  position: absolute;
+  top: 1.2em;
+  left: 0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  background: white;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 500ms;
+}
+
+.hovercard > * {
+  padding: 0 1rem;
+}
+
+.hovercard--image {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+  margin: 1rem 0;
+}
+
+.hovercard--title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.link-with-hovercard a:hover ~ .hovercard {
+  animation: showCard 1000ms ease-out 300ms forwards;
+}
+
+@keyframes showCard {
+  0% {
+    max-height: 0%
+  }
+  100% {
+    max-height: 100vh;
+  }
+}
+
+body {
+  background-color: beige;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+}
+
+/* Tooltip */
+body {
+  margin-top: 100px;
+  margin-left: 100px;
+  text-align: center;
+}
+a {
+  font-size:25px;
+  color: #0bd;
+  text-decoration: none;
+}
+.tooltip1 {
+  display: inline;
+  position: relative;
+}
+.tooltip1:hover:after{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background: #444;
+  border-radius: 8px;
+  color: #fff;
+  content: attr(title1);
+  margin: -82px auto 0;
+  font-size: 16px;
+  padding: 13px;
+  width: 220px;
+}
+.tooltip1:hover:before{
+  border: solid;
+  border-color: #444 transparent;
+  border-width: 12px 6px 0 6px;
+  content: "";
+  left: 45%;
+  bottom: 30px;
+  position: absolute;
+}
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-6">
+                <!-- Hovercard Effect -->
+                <h1>CSS-Only Hovercard Effect</h1>
+                <p>
+                    When you hover for a moment over the link below, a
+                    <em>hovercard</em> will appear showing more information.
+                </p>
+                <p>
+                    This was inspired by a
+                    <a href="https://en.wikipedia.org/wiki/Hoverbox"
+                        >similar effect</a
+                    >
+                    used with Wikipedia / MediaWiki. However, the code is
+                    entirely original.
+                </p>
+                <div class="content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing
+                    <span class="link-with-hovercard">
+                        <a href="#">Hover Me!!</a>
+                        <span class="hovercard">
+                            <img
+                                src="https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+                                class="hovercard--image"
+                                alt="Wikipedia Logo"
+                            />
+                            <h1 class="hovercard--title">Hovercard</h1>
+                            <p class="hovercard--description">
+                                This effect shows a box containing more
+                                information when hovering over a link.
+                            </p>
+                        </span>
+                    </span>
+                    elit. Veniam corporis quos, repellendus cum quo doloribus?
+                    Vero, dolor maxime similique eos quae, labore temporibus
+                    quasi consequatur aspernatur animi nostrum tenetur pariatur.
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Tooltip -->
+                <h1>CSS-Only Tooltip Effect</h1>
+                <a href="#" title1="Hello from speech bubble!" class="tooltip1">CSS Tooltip! Hover me!</a>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
