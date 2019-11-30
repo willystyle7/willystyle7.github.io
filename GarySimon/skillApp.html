@@ -20,13 +20,13 @@
 
     <script type="text/x-template" id="skills-template">
         <div class="hello">
-            <div class="holder">            
+            <div class="holder">
                 <form @submit.prevent="addSkill">
-                    <input type="text" placeholder="Enter a skill you have.." v-model="skill" v-validate="'min:5'" name="skill">                
+                    <input type="text" placeholder="Enter a skill you have.." v-model="skill" v-validate="'min:5'" name="skill">
                     <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
                         <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
                     </transition>
-                </form>                
+                </form>
                 <ul>
                     <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
                         <li v-for="(data, index) in skills" :key='index'>
@@ -34,7 +34,7 @@
                             <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
                         </li>
                     </transition-group>
-                </ul>                
+                </ul>
                 <p>These are the skills that you possess.</p>
             </div>
         </div>
@@ -49,7 +49,7 @@
 
     <script type="text/x-template" id="contact-template">
         <div class="contact">
-            <h3>Contact information:</h1>
+            <h3>Contact information:</h3>
             <p>Github, Gitlab: willystyle7</p>
             <p>Skype: willystyle2</p>
             <p>Email: ilia111@yahoo.com</p>
@@ -62,7 +62,7 @@
                 <router-link to="/">Home</router-link>
                 <router-link to="/about">About</router-link>
                 <router-link to="/contact">Contact</router-link>
-            </nav>          
+            </nav>
             <router-view />
         </div>
     </script>
