@@ -20,16 +20,24 @@ var Skills = Vue.component('Skills', {
     },
     methods: {
         addSkill() {
-            this.$validator.validateAll().then((result) => {
-                if (result && this.skill.length > 0) {
-                    this.skills.push({
-                        skill: this.skill
-                    })
-                    this.skill = '';
-                } else {
-                    console.log('Not valid');
-                }
-            })
+            // this.$validator.validateAll().then((result) => {
+            //     if (result && this.skill.length > 0) {
+            //         this.skills.push({
+            //             skill: this.skill
+            //         })
+            //         this.skill = '';
+            //     } else {
+            //         console.log('Not valid');
+            //     }
+            // })
+            if (this.skill.length > 0) {
+                this.skills.push({
+                    skill: this.skill
+                })
+                this.skill = '';
+            } else {
+                console.log('Not valid');
+            }
         },
         remove(id) {
             this.skills.splice(id, 1);
