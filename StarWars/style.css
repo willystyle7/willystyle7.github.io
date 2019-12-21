@@ -12,6 +12,31 @@ audio {
     z-index: 2;
 }
 
+#canvas {
+    position: absolute;
+    z-index: 2;
+    display: none;
+}
+
+#intro {
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+    color: #E7AE05;
+    -webkit-perspective: 60;
+    -webkit-perspective-origin: center 0;
+    -moz-perspective: 60px;
+    -moz-perspective-origin: center 0;
+    -o-perspective: 60;
+    -o-perspective-origin: center 0;
+    letter-spacing: 1px;
+    text-align: justify;
+    text-shadow: 0 0 1px #E7AE05;
+}
+
 .fade {
     position: relative;
     width: 100%;
