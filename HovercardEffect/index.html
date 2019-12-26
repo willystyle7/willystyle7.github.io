@@ -11,107 +11,149 @@
             crossorigin="anonymous"
         />
         <title>Hovercard Effect and Tooltip</title>
+
         <style>
-/* Hovercard Effect */
-.content {
-  background-color: white;
-  max-width: 30em;
-  padding: 1rem;
-}
 
-.link-with-hovercard {
-  position: relative;
-}
+            /* Hovercard Effect */
+            .content {
+                background-color: white;
+                max-width: 30em;
+                padding: 1rem;
+            }
 
-.link-with-hovercard a {
-  white-space: nowrap;
-}
+            .link-with-hovercard {
+                position: relative;
+            }
 
-.hovercard {
-  display: block;
-  position: absolute;
-  top: 1.2em;
-  left: 0;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  background: white;
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height 500ms;
-}
+            .link-with-hovercard a {
+                white-space: nowrap;
+            }
 
-.hovercard > * {
-  padding: 0 1rem;
-}
+            .hovercard {
+                display: block;
+                position: absolute;
+                top: 1.2em;
+                left: 0;
+                box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                background: white;
+                max-height: 0px;
+                overflow: hidden;
+                transition: max-height 500ms;
+            }
 
-.hovercard--image {
-  width: 150px;
-  height: 100px;
-  object-fit: contain;
-  margin: 1rem 0;
-}
+            .hovercard > * {
+                padding: 0 1rem;
+            }
 
-.hovercard--title {
-  margin: 0;
-  font-size: 1.5rem;
-}
+            .hovercard--image {
+                width: 150px;
+                height: 100px;
+                object-fit: contain;
+                margin: 1rem 0;
+            }
 
-.link-with-hovercard a:hover ~ .hovercard {
-  animation: showCard 1000ms ease-out 300ms forwards;
-}
+            .hovercard--title {
+                margin: 0;
+                font-size: 1.5rem;
+            }
 
-@keyframes showCard {
-  0% {
-    max-height: 0%
-  }
-  100% {
-    max-height: 100vh;
-  }
-}
+            .link-with-hovercard a:hover ~ .hovercard {
+                animation: showCard 1000ms ease-out 300ms forwards;
+            }
 
-body {
-  background-color: beige;
-  font-family: sans-serif;
-  font-size: 1.2rem;
-}
+            @keyframes showCard {
+                0% {
+                    max-height: 0%;
+                }
+                100% {
+                    max-height: 100vh;
+                }
+            }
 
-/* Tooltip */
-body {
-  margin-top: 100px;
-  margin-left: 100px;
-  text-align: center;
-}
-a {
-  font-size:25px;
-  color: #0bd;
-  text-decoration: none;
-}
-.tooltip1 {
-  display: inline;
-  position: relative;
-}
-.tooltip1:hover:after{
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  background: #444;
-  border-radius: 8px;
-  color: #fff;
-  content: attr(title1);
-  margin: -82px auto 0;
-  font-size: 16px;
-  padding: 13px;
-  width: 220px;
-}
-.tooltip1:hover:before{
-  border: solid;
-  border-color: #444 transparent;
-  border-width: 12px 6px 0 6px;
-  content: "";
-  left: 45%;
-  bottom: 30px;
-  position: absolute;
-}
+            body {
+                background-color: beige;
+                font-family: sans-serif;
+                font-size: 1.2rem;
+            }
+
+            /* Tooltip */
+            body {
+                margin-top: 100px;
+                margin-left: 100px;
+                text-align: center;
+            }
+            a {
+                font-size: 25px;
+                color: #0bd;
+                text-decoration: none;
+            }
+            .tooltip1 {
+                display: inline;
+                position: relative;
+            }
+            .tooltip1:hover:after {
+                display: -webkit-flex;
+                display: flex;
+                -webkit-justify-content: center;
+                justify-content: center;
+                background: #444;
+                border-radius: 8px;
+                color: #fff;
+                content: attr(title1);
+                margin: 18px auto 0;
+                font-size: 16px;
+                padding: 13px;
+                width: 220px;
+            }
+            .tooltip1:hover:before {
+                border: solid;
+                border-color: #444 transparent;
+                border-width: 12px 6px 0 6px;
+                content: '';
+                left: 45%;
+                bottom: 30px;
+                position: absolute;
+            }
+
+            /* Bouncing Button CSS */
+            .button-bouncing {
+                background-color: #de4e61;
+                border-radius: 5px;
+                padding: .3em 1.5em;
+                color: #fff;
+                text-transform: uppercase;
+                animation: button-bouncing 5s infinite 2s ease-out;
+                animation-name: button-bouncing;
+                animation-duration: 5s;
+                animation-timing-function: ease-out;
+                animation-delay: 2s;
+                animation-iteration-count: infinite;
+                animation-direction: normal;
+                animation-fill-mode: none;
+                animation-play-state: running;
+                display: inline-block;
+            }
+
+            @keyframes button-bouncing {
+                0% {
+                    transform: scale(1);
+                }
+                2% {
+                    transform: scale(1.1);
+                }
+                4% {
+                    transform: scale(.9);
+                }
+                6% {
+                    transform: scale(1.05);
+                }
+                8% {
+                    transform: scale(1.03);
+                }
+                10% {
+                    transform: scale(1);
+                }
+            }
         </style>
     </head>
     <body>
@@ -156,11 +198,31 @@ a {
             <div class="col-6">
                 <!-- Tooltip -->
                 <h1>CSS-Only Tooltip Effect</h1>
-                <a href="#" title1="Hello from speech bubble!" class="tooltip1">CSS Tooltip! Hover me!</a>
+                <a href="#" title1="Hello from speech bubble!" class="tooltip1"
+                    >CSS Tooltip! Hover me!</a
+                >
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <!-- Bouncing Button CSS -->
+        <button class="button-bouncing" title="Bouncing Button CSS">
+            Pulsing Button
+        </button>
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
     </body>
 </html>
