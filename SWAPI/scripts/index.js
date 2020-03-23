@@ -1,27 +1,29 @@
 var moviesContainer = document.getElementById('moviesContainer');
 var charactersContainer = document.getElementById('charactersContainer');
+var characterInfoContainer = document.getElementById('characterInfoContainer');
 
 var moviesCharacters = {};
+var charactersInfo = {};
 fetchMovies();
 
 
 function fetchMovies() {
-    let url = 'https://swapi.co/api/films';
-    const myInit = {
+    var url = 'https://swapi.co/api/films';
+    var myInit = {
         method: 'GET',
         headers: {
             Accept: 'application/json'
         },
         withCredentials: false
     };
-    const myRequest = new Request(url, myInit);
+    var myRequest = new Request(url, myInit);
     fetch(myRequest)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
             // console.log(data);
-            let movies = data.results;
+            var movies = data.results;
             addMoviesDOM(movies);
         })
         .catch(function(e) {
@@ -53,6 +55,7 @@ function addMoviesDOM(movies) {
         divMovie.classList.add('pl-2');
         divMovie.classList.add('pb-2');
         moviesContainer.appendChild(divMovie);
+        // add charactes apis to moviesCharacters dictionary
         moviesCharacters[movie.episode_id] = movie.characters;
     });
     var moviesDivs = document.querySelectorAll('.movie');
@@ -69,11 +72,38 @@ function onClickMovie(ev) {
     fetchCharacters(characters);
 }
 
+function onClickCharacter(ev) {
+    // console.log(ev);
+    var characterElement = ev.target;
+    var characterName = characterElement.id;
+    var characterInfo = charactersInfo[characterName];
+    console.log(characterInfo);
+    characterInfoContainer.innerHTML = '';
+    var content = `<p class="character-info">Name: ${characterInfo.name}</p>`;
+    content += `<p class="character-info">Birth year: ${characterInfo.birth_year}</p>`;
+    content += `<p class="character-info">Height: ${characterInfo.height}</p>`;
+    content += `<p class="character-info">Mass: ${characterInfo.mass}</p>`;
+    content += `<p class="character-info">Eye color: ${characterInfo.eye_color}</p>`;
+    content += `<p class="character-info">Hair color: ${characterInfo.hair_color}</p>`;
+    content += `<p class="character-info">Skin color: ${characterInfo.skin_color}</p>`;
+    characterInfoContainer.innerHTML = content;
+    var divCharacterInfo = document.createElement('div');
+    divCharacter.classList.add('character-info-container');
+    divCharacter.classList.add('card');
+    divCharacter.classList.add('mt-3');
+    divCharacter.classList.add('pt-2');
+    divCharacter.classList.add('pl-2');
+    divCharacter.classList.add('pb-2');
+    charactersContainer.appendChild(divCharacterInfo);
+}
+
 function addCharactersDOM(characters) {
+    // console.log(characters);
     charactersContainer.innerHTML = '';
     characters.forEach(character => {
         var divCharacter = document.createElement('div');
         divCharacter.textContent = character.name;
+        divCharacter.setAttribute('id', character.name);
         divCharacter.classList.add('character');
         divCharacter.classList.add('card');
         divCharacter.classList.add('mt-3');
@@ -81,6 +111,12 @@ function addCharactersDOM(characters) {
         divCharacter.classList.add('pl-2');
         divCharacter.classList.add('pb-2');
         charactersContainer.appendChild(divCharacter);
+        // add character info to charactersInfo dictionary
+        charactersInfo[character.name] = character;
+    });
+    var charactersDivs = document.querySelectorAll('.character');
+    charactersDivs.forEach(div => {
+        div.addEventListener('click', onClickCharacter);
     });
 }
 
