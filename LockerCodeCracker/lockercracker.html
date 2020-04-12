@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="locker.jpg" />
+    <title>3-Digits Locker Code Cracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <style>
+    body {
+        padding-top: 20px;
+    }
+    .input-error {
+        border-color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div class="container">
+            <div class="card m-2" style="width: 28rem;">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="d-flex justify-content-center">
+                                <h2 class="card-title">3-Digits Locker</h2>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <h3 class="card-subtitle mb-2 text-muted">Code Cracker</h3>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <img src="locker.png" alt="Locker" height="80" width="80">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row pb-2">
+                        <div class="col-6">
+                            <label>Enter number of tries: </label>
+                            <input class="form-control" type="text" id="count" v-model="count" placeholder="Enter number..."/>
+                        </div>
+                    </div>
+                    <div class="row pb-2" v-if="count > 0">
+                        <div class="col-2">
+                            Try
+                        </div>
+                        <div class="col-4">
+                            3-Digit Code:
+                        </div>
+                        <div class="col-3">
+                            <span><i class="fa fa-question-circle" title="Count of right digits on right places"></i></span>
+                            Hits:
+                        </div>
+                        <div class="col-3">
+                            <span><i class="fa fa-question-circle" title="Count of right digits on wrong places"></i></span>
+                            Almost:
+                        </div>
+                    </div>
+                    <div class="row pb-2" v-for="i in Number(count)" :key="i">
+                        <div class="col-2">
+                            <span class="pt-4">{{ i }}. </span>
+                        </div>
+                        <div class="col-4">
+                            <input :class="{'form-control': true, 'input-error': !isTryValid(tries[i-1])}" type="text" v-model="tries[i-1]" placeholder="3-Digit Code"/>
+                        </div>
+                        <div class="col-3">
+                            <input :class="{'form-control': true, 'input-error': !isCountValid(hits[i-1])}" type="text" v-model="hits[i-1]" placeholder="Hits"/>
+                        </div>
+                        <div class="col-3">
+                            <input :class="{'form-control': true, 'input-error': !isCountValid(almost[i-1])}" type="text" v-model="almost[i-1]" placeholder="Almost"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-success ml-4" @click="crack" :disabled="!areAllInputsValid">Crack</button>
+                        <button type="button" class="btn btn-danger ml-2" @click="reset">Reset</button>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row" v-if="showSolution">
+                        <p v-if="solutions.length > 0">
+                            <label>Solutions: </label>
+                            {{ solutions }}
+                        </p>
+                        <p v-else>
+                            There is no solution.
+                        </p>
+                    </div>
+                    <div class="row">
+                        3-Digits Locker Code Cracker &nbsp;
+                        <span v-if="solutions.length === 0">&#128274;</span>
+                        <span v-else>&#128275;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lockercracker.js"></script>
+</body>
+
+</html>
