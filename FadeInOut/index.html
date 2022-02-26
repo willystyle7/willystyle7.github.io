@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fade In/Out</title>
+    <style>
+        #target {
+            height: 100px;
+            background-color: red;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <p>Some text before<p>
+    <div id="target">Click to fade</div>
+    <p>Some text after</p>
+    <script>
+
+        const target = document.getElementById("target");
+
+        let count = 0;
+        target.addEventListener('click', () => {
+            if (count++ % 2 === 0) {
+                // fade out
+                target.style.opacity = '0';
+            } else {
+                // fade in
+                target.style.opacity = '1';
+            }
+        });
+
+        // If you want to remove it from the page after the fadeout
+        // target.addEventListener('transitionend', () => target.remove());
+
+    </script>
+</body>
+</html>
