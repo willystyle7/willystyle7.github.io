@@ -15,7 +15,10 @@ var app = new Vue({
     data: {
         map: null,
         olSource: null,
+        markersSource: null,
         olLayer: null,
+        markersLayer: null,
+        showSearch: false,
         message: 'Hello Vue!',
     },
     computed: {},
@@ -65,6 +68,10 @@ var app = new Vue({
             this.map.getView().calculateExtent(this.map.getSize())
             this.map.getView().setZoom(mapSettings.minZoom)
             this.map.getView().setMinZoom(mapSettings.minZoom)
+        },
+        toggleSearch () {
+            console.log('toggle search');
+            this.showSearch = !this.showSearch;
         }
     }
 });

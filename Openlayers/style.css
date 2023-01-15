@@ -1,3 +1,41 @@
 #map-wrapper {
     position: relative;
 }
+
+.oc-map {
+    height: 850px !important;
+}
+
+#map-search-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+
+.map-overlay-button-wrapper {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.map-overlay-button:hover {
+    background-color: rgba(0, 60, 136, 0.7);
+}
+
+.map-overlay-button {
+    cursor: pointer;
+    display: block;
+    margin: 1px;
+    padding: 0;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    min-height: 26px;
+    min-width: 26px;
+    line-height: 22px;
+    background-color: rgba(0, 60, 136, 0.5);
+    border-radius: 0 0 2px 2px;
+    border: none;
+}

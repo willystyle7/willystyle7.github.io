@@ -8,6 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="./opelayers-logo.svg" />
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./openlayers-5.3/ol.css">
+    <link rel="stylesheet" href="../styles/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
     <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -18,9 +19,16 @@
 
     <script type="text/x-template" id="main-template">
         <div class="main">
-            {{ message }}
             <div id="map-wrapper">
                 <div id="area-map" class="oc-map">
+                </div>
+                <div class="map-overlay-button-wrapper" id="map-search-button">
+                    <span class="map-overlay-button" @click="toggleSearch">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+                <div id="map-custom-polygons-box" v-if="showSearch">
+                    TODO
                 </div>
             </div>
         </div>
