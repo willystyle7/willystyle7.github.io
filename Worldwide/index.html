@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Worldwide Alerts</title>
+        <link rel="icon" type="image/svg+xml" href="./opelayers-logo.svg" />
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://unpkg.com/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        />
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"
+        />
+        <script src="https://unpkg.com/vue@2.7.14/dist/vue.min.js"></script>
+        <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+        <style>
+            .oc-map {
+                height: 850px !important;
+            }
+            /* style map zoom controls */
+            .ol-zoom {
+                top: auto !important; /* top: 5.5em; */
+                left: auto !important; /* left: 5.5em; */
+                bottom: 1.5em !important;
+                right: 0.5em !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" v-cloak></div>
+        <script type="text/x-template" id="main-template">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8">
+                        <div id="map-wrapper">
+                            <div id="area-map" class="oc-map">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <div class="mt-3">
+                                    <label for="selectedCountry" class="form-label">Country</label>
+                                    <select class="form-control" id="selectedCountry" v-model="selectedCountry">
+                                        <!-- Placeholder option with custom empty text -->
+                                        <option value="">-- Select Country --</option>
+                                        <option v-for="(country, code) in countryOptions" :key="code" :value="code">
+                                            {{ country }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script src="./geojsonData.js"></script>
+        <script>
+            // geojsonData is loaded as global var
+            var mapSettings = {
+                boundarybox: [-180, -90, 180, 90],
+                center: {
+                    lat: 0,
+                    lng: 0,
+                },
+                minZoom: 2,
+                preview: {
+                    borderColor: [0, 153, 255, 1], // [0, 153, 255, 1]
+                    backgroundColor: [255, 255, 255, 0.27], // [255, 255, 255, 0.47]
+                    borderWidth: 2, // 3
+                },
+                select: {
+                    borderColor: [255, 165, 0, 1], // [255, 165, 0, 1]
+                    backgroundColor: [255, 255, 255, 0.27], // [255, 255, 255, 0.47]
+                    borderWidth: 3, // 4
+                },
+                tileServer:
+                    // 'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                    'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png',
+            };
+            var app = new Vue({
+                el: '#app',
+                template: '#main-template',
+                data() {
+                    return {
+                        selectedCountry: '',
+                        map: null,
+                        olSource: null,
+                        olLayer: null,
+                        countrySource: null,
+                        countryLayer: null,
+                        currentPreviewObj: null,
+                        currentSelectObj: null,
+                    };
+                },
+                mounted() {
+                    this.initMap();
+                },
+                computed: {
+                    countryOptions() {
+                        let options = {};
+                        for (const feature of geojsonData.features) {
+                            options[feature.id] = feature.properties.name;
+                        }
+                        return options;
+                    },
+                },
+                methods: {
+                    initMap() {
+                        let options = {
+                            target: document.getElementById('area-map'),
+                        };
+                        this.map = new ol.Map(options);
+
+                        defaultOptions = {
+                            view: new ol.View({
+                                resolution: 1,
+                                center: ol.proj.fromLonLat([
+                                    mapSettings.center.lng,
+                                    mapSettings.center.lat,
+                                ]),
+                                extent: [
+                                    ...ol.proj.transform(
+                                        [
+                                            mapSettings.boundarybox[0],
+                                            mapSettings.boundarybox[1],
+                                        ],
+                                        'EPSG:4326',
+                                        'EPSG:3857'
+                                    ),
+                                    ...ol.proj.transform(
+                                        [
+                                            mapSettings.boundarybox[2],
+                                            mapSettings.boundarybox[3],
+                                        ],
+                                        'EPSG:4326',
+                                        'EPSG:3857'
+                                    ),
+                                ],
+                            }),
+                        };
+
+                        this.map.setView(defaultOptions.view);
+
+                        this.olSource = new ol.source.OSM({
+                            url: mapSettings.tileServer,
+                            crossOrigin: null,
+                        });
+
+                        this.olLayer = new ol.layer.Tile({
+                            source: this.olSource,
+                        });
+                        this.map.addLayer(this.olLayer);
+
+                        // Load GeoJSON countries
+                        this.countrySource = new ol.source.Vector({
+                            url: 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json',
+                            format: new ol.format.GeoJSON(),
+                        });
+                        this.countryLayer = new ol.layer.Vector({
+                            source: this.countrySource,
+                            style: new ol.style.Style({
+                                stroke: new ol.style.Stroke({
+                                    color: 'grey', // 'blue'
+                                    width: 1,
+                                }),
+                                fill: new ol.style.Fill({
+                                    color: 'rgba(0, 0, 255, 0.1)',
+                                }),
+                            }),
+                        });
+                        this.map.addLayer(this.countryLayer);
+
+                        this.map.getView().calculateExtent(this.map.getSize());
+                        this.map.getView().setZoom(mapSettings.minZoom);
+                        this.map.getView().setMinZoom(mapSettings.minZoom);
+
+                        this.subscribeToMapEvents();
+                    },
+                    subscribeToMapEvents() {
+                        // subscribe to map events
+                        this.map.on('pointermove', (ev) => {
+                            this.previewObject(ev);
+                        });
+                        // this.map.on('dblclick', (ev) => {
+                        this.map.on('click', (ev) => {
+                            ev.preventDefault(); // prevent default zoom in
+                            this.selectObject(ev);
+                        });
+                    },
+                    previewObject(ev) {
+                        this.clearPreviewObject();
+
+                        let currentHovered =
+                            this.countrySource.getFeaturesAtCoordinate(
+                                ev.coordinate
+                            )[0] || null;
+                        // console.log('currentHovered: ', currentHovered);
+                        if (
+                            currentHovered &&
+                            currentHovered !== this.currentSelectObj
+                        ) {
+                            this.currentPreviewObj = currentHovered;
+                            this.currentPreviewObj.setStyle(
+                                new ol.style.Style({
+                                    stroke: new ol.style.Stroke({
+                                        color: `rgba(${mapSettings.preview.borderColor.join(
+                                            ','
+                                        )})`,
+                                        width: mapSettings.preview.borderWidth,
+                                    }),
+                                    fill: new ol.style.Fill({
+                                        color: `rgba(${mapSettings.preview.backgroundColor.join(
+                                            ','
+                                        )})`,
+                                    }),
+                                })
+                            );
+                        }
+                    },
+                    clearPreviewObject() {
+                        if (this.currentPreviewObj) {
+                            this.currentPreviewObj.setStyle(undefined);
+                            this.currentPreviewObj = null;
+                        }
+                    },
+                    selectObject(ev) {
+                        this.clearSelectObject();
+
+                        let currentClicked =
+                            this.countrySource.getFeaturesAtCoordinate(
+                                ev.coordinate
+                            )[0] || null;
+                        // console.log('currentClicked: ', currentClicked);
+                        if (currentClicked) {
+                            this.clearPreviewObject();
+                            this.currentSelectObj = currentClicked;
+                            this.currentSelectObj.setStyle(
+                                new ol.style.Style({
+                                    stroke: new ol.style.Stroke({
+                                        color: `rgba(${mapSettings.select.borderColor.join(
+                                            ','
+                                        )})`,
+                                        width: mapSettings.select.borderWidth,
+                                    }),
+                                    fill: new ol.style.Fill({
+                                        color: `rgba(${mapSettings.select.backgroundColor.join(
+                                            ','
+                                        )})`,
+                                    }),
+                                })
+                            );
+                            this.focusOnFeature(this.currentSelectObj);
+                            // select country
+                            let currentClickedId = currentClicked.getId();
+                            this.selectedCountry = currentClickedId;
+                        }
+                    },
+                    selectObjectById(id) {
+                        if (!this.countrySource) return;
+                        this.clearSelectObject();
+
+                        let currentSelected =
+                            this.countrySource.getFeatureById(id) || null;
+                        // console.log('currentSelected: ', currentSelected);
+                        if (currentSelected) {
+                            this.clearPreviewObject();
+                            this.currentSelectObj = currentSelected;
+                            this.currentSelectObj.setStyle(
+                                new ol.style.Style({
+                                    stroke: new ol.style.Stroke({
+                                        color: `rgba(${mapSettings.select.borderColor.join(
+                                            ','
+                                        )})`,
+                                        width: mapSettings.select.borderWidth,
+                                    }),
+                                    fill: new ol.style.Fill({
+                                        color: `rgba(${mapSettings.select.backgroundColor.join(
+                                            ','
+                                        )})`,
+                                    }),
+                                })
+                            );
+                            this.focusOnFeature(this.currentSelectObj);
+                        }
+                    },
+                    clearSelectObject() {
+                        if (this.currentSelectObj) {
+                            this.currentSelectObj.setStyle(undefined);
+                            this.currentSelectObj = null;
+                        }
+                    },
+                    focusOnFeature(feature) {
+                        let extent = feature.getGeometry().getExtent();
+                        this.map.getView().fit(extent, {
+                            padding: [50, 50, 50, 50], // optional padding around the extent
+                            duration: 1000, // optional animation duration
+                            maxZoom: 6, // set your desired maximum zoom level
+                        });
+                    },
+                },
+                watch: {
+                    selectedCountry: {
+                        immediate: true,
+                        handler(newVal, oldVal) {
+                            this.selectObjectById(this.selectedCountry);
+                        },
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>
